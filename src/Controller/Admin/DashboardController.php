@@ -41,7 +41,7 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('Symfony Skeleton Web App')
+            ->setTitle('Find')
             ->setLocales([
                 'en' => '🇬🇧 English',
                 'pl' => '🇵🇱 Polski'
