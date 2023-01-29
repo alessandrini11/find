@@ -12,10 +12,6 @@ class Payement
 {
     use DateTrait;
 
-    const DEPOSIT = 'deposit';
-    const WITHDRAWAL = 'withdrawal';
-    // const ROLE_SUPER_ADMIN = 'ROLE_SUPER_ADMIN';
-
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]

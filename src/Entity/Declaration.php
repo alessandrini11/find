@@ -18,7 +18,7 @@ class Declaration
     const LOST = 'lost';
     const FOUND = 'found';
 
-    const TYPE = [
+    const STATUS = [
         self::LOST => 'perdu',
         self::FOUND => 'trouvé',
     ];
@@ -174,5 +174,10 @@ class Declaration
         }
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->getDocument();
     }
 }

@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}
+
+
+<div class="example-wrapper">
+    <div class="w-11/12 mx-auto">
+        <h2 class="text-2xl font-medium">General Statistics</h2>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
+
+            <div class="grid grid-cols-5 gap-3 bg-white rounded-md shadow-md p-2">
+                <div class="bg-teal-500 col-span-2 flex justify-center items-center text-white rounded-md p-3 ">
+                    <i class="text-xl fa fa-house"></i>
+                </div>
+                <div class="col-span-3 flex flex-col justify-between">
+                    <span>Buildings</span>
+                    <span class="font-semibold">{{documents | length}}</span>
+                </div>
+            </div>
+            <div class="grid grid-cols-5 gap-3 bg-white rounded-md shadow-md p-2">
+                <div class="bg-orange-500 col-span-2 flex justify-center items-center text-white rounded-md p-3 ">
+                    <i class="text-xl fa fa-bed"></i>
+                </div>
+                <div class="col-span-3 flex flex-col justify-between">
+                    <span>Rooms</span>
+                    <span class="font-semibold">{{declaration | length}}</span>
+                </div>
+            </div>
+            <div class="grid grid-cols-5 gap-3 bg-white rounded-md shadow-md p-2">
+                <div class="bg-green-500 col-span-2 flex justify-center items-center text-white rounded-md p-3 ">
+                    <i class="text-xl fa fa-pencil"></i>
+                </div>
+                <div class="col-span-3 flex flex-col justify-between">
+                    <span>Ads</span>
+                    <span class="font-semibold">{{documents | length}}</span>
+                </div>
+            </div>
+            <div class="grid grid-cols-5 gap-3 bg-white rounded-md shadow-md p-2">
+                <div class="bg-fuchsia-500 col-span-2 flex justify-center items-center text-white rounded-md p-3 ">
+                    <i class="text-xl fa fa-cogs"></i>
+                </div>
+                <div class="col-span-3 flex flex-col justify-between">
+                    <span>Ad Campaigns</span>
+                    <span class="font-semibold">{{found_documents | length}}</span>
+                </div>
+            </div>
+            <div class="grid grid-cols-5 gap-3 bg-white rounded-md shadow-md p-2">
+                <div class="bg-blue-500 col-span-2 flex justify-center items-center text-white rounded-md p-3 ">
+                    <i class="text-xl fa fa-user"></i>
+                </div>
+                <div class="col-span-3 flex flex-col justify-between">
+                    <span>User</span>
+                    <span class="font-semibold">{{users | length}}</span>
+                </div>
+            </div>
+            <div class="grid grid-cols-5 gap-3 bg-white rounded-md shadow-md p-2">
+                <div class="bg-violet-500 col-span-2 flex justify-center items-center text-white rounded-md p-3 ">
+                    <i class="text-xl fa fa-user-group"></i>
+                </div>
+                <div class="col-span-3 flex flex-col justify-between">
+                    <span>Visitors</span>
+                    <p class=""><span class="font-semibold mr-5">{{visitors | length}}</span><span><i class="text-green-500 fa fa-arrow-up"></i><i class="text-red-500 fa fa-arrow-down"></i></span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

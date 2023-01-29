@@ -21,7 +21,7 @@ class Document
     const MARRIAGE_CERTIFICATE = 'marriage certificate';
     const CERTIFICATE = 'certificate';
 
-    const sexs = [
+    const TYPES = [
         self::NIC => 'cni',
         self::BIRTH_CERTIFICATE => 'acte naissance',
         self::DEATH_CERTIFICATE => 'acte décès',
@@ -48,7 +48,7 @@ class Document
     #[ORM\ManyToOne(inversedBy: 'documents')]
     private ?User $user = null;
 
-    #[ORM\OneToMany(mappedBy: 'document', targetEntity: Declaration::class)]
+    #[ORM\OneToMany(mappedBy: 'document', targetEntity: Declaration::class, cascade: ["persist"])]
     private Collection $declarations;
 
 
@@ -152,4 +152,8 @@ class Document
         return $this;
     }
 
+    public function __toString(): string
+    {
+        return $this->type ." - ". $this->getUser()->getFirstname(). " ". $this->getUser()->getLastname();
+    }
 }
