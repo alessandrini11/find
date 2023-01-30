@@ -5,12 +5,13 @@ namespace App\Controller\User;
 use App\Entity\Document;
 use App\Form\DocumentType;
 use App\Repository\DocumentRepository;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/document')]
+#[Route('/dashboard/document')]
 class DocumentController extends AbstractController
 {
     #[Route('/', name: 'app_document_index', methods: ['GET'])]
@@ -22,15 +23,18 @@ class DocumentController extends AbstractController
     }
 
     #[Route('/new', name: 'app_document_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, DocumentRepository $documentRepository): Response
+    public function new(Request $request, DocumentRepository $documentRepository, UserRepository $userRepository): Response
     {
+        $user = $userRepository->find(3);
         $document = new Document();
         $form = $this->createForm(DocumentType::class, $document);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $document->setUser($user);
             $documentRepository->save($document, true);
 
+            $this->addFlash('success', 'Document créé avec succès');
             return $this->redirectToRoute('app_document_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -49,14 +53,16 @@ class DocumentController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_document_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Document $document, DocumentRepository $documentRepository): Response
+    public function edit(Request $request, Document $document, DocumentRepository $documentRepository, UserRepository $userRepository): Response
     {
         $form = $this->createForm(DocumentType::class, $document);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $user = $userRepository->find(3);
             $documentRepository->save($document, true);
 
+            $this->addFlash('success', 'Document modifié avec succès');
             return $this->redirectToRoute('app_document_index', [], Response::HTTP_SEE_OTHER);
         }
 

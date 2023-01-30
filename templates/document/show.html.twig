@@ -1,46 +1,49 @@
-{% extends 'base.html.twig' %}
+{% extends 'dashboard.html.twig' %}
 
 {% block title %}Document{% endblock %}
 
 {% block body %}
-    <h1>Document</h1>
-
-    <table class="table">
-        <tbody>
-            <tr>
+    <section class="w-11/12 mx-auto">
+        <table class="table">
+            <tbody class="flex flex-col space-y-5">
+            <tr class="flex space-x-2">
                 <th>Id</th>
                 <td>{{ document.id }}</td>
             </tr>
-            <tr>
-                <th>Owner</th>
+            <tr class="flex space-x-2">
+                <th>Proprietaire</th>
                 <td>{{ document.owner }}</td>
             </tr>
-            <tr>
+            <tr class="flex space-x-2">
                 <th>Type</th>
                 <td>{{ document.type }}</td>
             </tr>
-            <tr>
-                <th>IdNumber</th>
+            <tr class="flex space-x-2">
+                <th>Identifiant</th>
                 <td>{{ document.idNumber }}</td>
             </tr>
-            <tr>
+            <tr class="flex space-x-2">
+                <th>Image</th>
+                <td>
+                    <div>
+                        <img src="https://unsplash.com/fr/photos/0J8thHZfosE" alt="">
+                    </div>
+                </td>
+            </tr>
+            <tr class="flex space-x-2">
                 <th>Description</th>
                 <td>{{ document.description }}</td>
             </tr>
-            <tr>
-                <th>CreatedAt</th>
-                <td>{{ document.createdAt ? document.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            <tr class="flex space-x-2">
+                <th>Créé le</th>
+                <td>{{ document.createdAt ? document.createdAt|date('d-M-Y H:i:s') : ''  }}</td>
             </tr>
-            <tr>
-                <th>UpdatedAt</th>
-                <td>{{ document.updatedAt ? document.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_document_index') }}">back to list</a>
-
-    <a href="{{ path('app_document_edit', {'id': document.id}) }}">edit</a>
-
-    {{ include('document/_delete_form.html.twig') }}
+            </tbody>
+        </table>
+        <div class="flex space-x-3 mt-5">
+            <a class="text-blue-500" href="{{ path('app_document_index') }}">back to list</a>
+            <a href="{{ path('app_document_edit', {'id': document.id}) }}"><i class="fa-solid fa-pen"></i></a>
+            {{ include('document/_delete_form.html.twig') }}
+        </div>
+    </section>
 {% endblock %}

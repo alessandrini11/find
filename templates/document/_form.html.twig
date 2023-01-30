@@ -1,4 +1,80 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+<div class="flex flex-col-reverse lg:flex-row space-y-5 lg:space-y-0 lg:space-x-5">
+    <div class="flex-1 space-y-5">
+        <div class="border bg-white rounded">
+            <div class="p-5">
+                <div class="space-y-4">
+                    <div class="">
+                        <label for="frontImage">Image Document</label>
+                    </div>
+                    <div class="flex justify-center items-center w-full h-32 px-4 transition bg-white border-2 border-gray-300 border-dashed rounded-md appearance-none cursor-pointer hover:border-gray-400 focus:outline-none">
+                        {{ form_row(form.imageFiles) }}
+                    </div>
+                </div>
+                <div id="img-preview-box" class="hidden">
+                    <div class="relative py-4">
+                        <span id="delete-img" class="absolute -right-3 text-white cursor-pointer bg-red-500 h-6 w-6 flex justify-center items-center rounded-full">X</span>
+                        <img id="preview-img" class="" src="" alt="">
+                    </div>
+                </div>
+                <div class="flex justify-end mt-5 lg:hidden">
+                    <button class="bg-blue-500 rounded text-white p-3 w-full lg:w-fit" type="submit">{{ button_label|default('Valider') }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="flex-[3]">
+        <div class="border bg-white rounded">
+            <div id="personnal-details" class="p-5">
+                <div class="space-y-5">
+                    <div class="grid lg:grid-cols-2 gap-5">
+                        <div class="space-y-2">
+                            <label class="block" for="firstname">Propriétaire</label>
+                            {{
+                            form_row(form.owner, {
+                                'attr': {
+                                    'class': 'border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ',
+                                    'placeholder': 'Nom du propriétaire'
+                                }
+                            })
+                            }}
+                        </div>
+                        <div class="space-y-2">
+                            <label class="block" for="firstname">Numéro</label>
+                            {{
+                            form_row(form.idNumber, {
+                                'attr': {
+                                    'class': 'border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ',
+                                    'placeholder': 'Identifiant'
+                                }
+                            })
+                            }}
+                        </div>
+                        <div class="space-y-2">
+                            <label class="block" for="numberroom">Type</label>
+                            {{ form_row(form.type) }}
+                        </div>
+                        <div class="space-y-2">
+                            <label class="block" for="description">Description</label>
+                            {{
+                            form_row(
+                                form.description, {
+                                'attr': {
+                                    'class': 'border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ',
+                                    'placeholder': 'Petite description',
+                                    'cols': '10',
+                                    'rows': '3'
+                                }
+                            })
+                            }}
+                        </div>
+                    </div>
+                    <div class="lg:flex justify-end hidden">
+                        <button class="bg-blue-500 rounded text-white p-3 w-full lg:w-fit" type="submit">{{ button_label|default('Valider') }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {{ form_end(form) }}

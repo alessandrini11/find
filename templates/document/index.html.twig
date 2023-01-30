@@ -1,45 +1,89 @@
-{% extends 'base.html.twig' %}
+{% extends 'dashboard.html.twig' %}
 
-{% block title %}Document index{% endblock %}
+{% block title %}Document{% endblock %}
 
 {% block body %}
-    <h1>Document index</h1>
+    <section class="py-7">
+        <div class="w-11/12 mx-auto space-y-10">
+            {% for message in app.flashes('success') %}
+                <div class="bg-green-200 text-green-600 ">
+                    <p class="py-3 px-6">{{ message }}</p>
+                </div>
+            {% endfor %}
+{#            <div class="">#}
+{#                {{form_start(search_form)}}#}
+{#                <div class="flex gap-5">#}
+{#                    <div class="">#}
+{#                        {{ form_row(search_form.name,{'attr':{'placeholder': 'Rechercher Nom','class':' w-full focus:outline-none border border-black rounded-md py-2 px-4'}}) }}#}
+{#                    </div>#}
+{#                    <button class="bg-blue-500 text-white rounded-md px-2">#}
+{#                        Recherche#}
+{#                    </button>#}
+{#                </div>#}
+{#                <div class="hidden">{{ form_rest(search_form) }}</div>#}
+{#                {{form_end(search_form)}}#}
+{#            </div>#}
+            <div class="bg-white">
+                <div class="">
+                    <div class="p-5 flex justify-between items-center">
+                        <span class="font-semibold text-gray-700">Les Documments</span>
+                        <a class="p-2 bg-green-100 text-green-500 rounded flex items-center cursor-pointer space-x-2 hover:scale-110 transition-all ease-in-out " href={{ path('app_document_new') }} >
+                            <i class="fa-solid fa-plus"></i>
+                            <span class="text-sm font-thin">Ajouter</span>
+                        </a>
+                    </div>
+                    <div class="p-5 overflow-x-scroll">
+                        <table class="w-full">
+                            <thead class="bg-gray-100 text-gray-500">
+                            <tr class="uppercase text-xs">
+                                <th class="p-2">Proprietaire</th>
+                                <th class="p-2">Type</th>
+                                <th class="p-2">Identifiant</th>
+                                <th class="p-2">Created At</th>
+                                <th class="p-2">Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for document in documents %}
+                                <tr class="text-sm {% if loop.index % 2 == 0 %} bg-gray-50 {% endif %} hover:bg-gray-100">
+                                    <td class="">
+                                        <div class="px-1 py-2 text-left">
+                                            <span>{{document.owner}}</span>
+                                        </div>
+                                    </td>
+                                    <td class="">
+                                        <div class="px-1 py-2 text-center">{{document.type}}</div>
+                                    </td>
+                                    <td class="">
+                                        <div class=" px-1 py-2 text-center">
+                                            {{document.idNumber}}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="text-center">{{document.createdAt | date('d M Y')}}</div>
+                                    </td>
+                                    <td>
+                                        <div class="flex justify-around px-2 text-gray-600">
+                                            <a title="detail" href="{{path('app_document_show', {id: document.id})}}" class="transition-all ease-in hover:scale-150"><i class="fa-solid fa-eye"></i></a>
+                                            <a title="modifier" href="{{path('app_document_edit', {id: document.id})}}" class="transition-all ease-in hover:scale-150"><i class="fa-solid fa-pen"></i></a>
+                                            {{ include('document/_delete_form.html.twig') }}
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="18">no records found</td>
+                                </tr>
+                            {% endfor %}
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Owner</th>
-                <th>Type</th>
-                <th>IdNumber</th>
-                <th>Description</th>
-                <th>CreatedAt</th>
-                <th>UpdatedAt</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for document in documents %}
-            <tr>
-                <td>{{ document.id }}</td>
-                <td>{{ document.owner }}</td>
-                <td>{{ document.type }}</td>
-                <td>{{ document.idNumber }}</td>
-                <td>{{ document.description }}</td>
-                <td>{{ document.createdAt ? document.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ document.updatedAt ? document.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('app_document_show', {'id': document.id}) }}">show</a>
-                    <a href="{{ path('app_document_edit', {'id': document.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="8">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_document_new') }}">Create new</a>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="navigation">
+{#                        {{ knp_pagination_render(rooms) }}#}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 {% endblock %}
