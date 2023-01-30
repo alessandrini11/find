@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.2/flowbite.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+    {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+    {% endblock %}
+</head>
+<body>
+<div class="bg-gray-100 min-h-screen">
+    <nav class="bg-[#212529] text-blue-100">
+        <div class="w-11/12 mx-auto relative">
+            <div  class="absolute -right-2 top-32 md:top-16">
+                <div id="floating-menu" class="text-[#212529] bg-white border hidden">
+                    <ul class="text-sm">
+{#                        <li class="border-b hover:bg-blue-500 hover:text-white text-center capitalize"><a class="p-4 block" href={{path('app_dashboard_profile')}}>compte</a></li>#}
+{#                        <li class="hover:bg-blue-500 hover:text-white text-center capitalize"><a class="p-4 block" href={{ path('app_logout')}}>déconnexion</a></li>#}
+                    </ul>
+                </div>
+            </div>
+            <div class="md:flex justify-between items-center py-5">
+                <a href="" class="text-2xl text-white font-semibold">Find</a>
+                <ul class="md:space-x-5 flex items-center justify-between mt-7 md:mt-0 ">
+                    <li><a class="" href="{{path('app_document_index')}}">Documents</a></li>
+{#                    <li><a href={{path('app_room_index')}} class="">Chambres</a></li>#}
+                    <li><span id="profile-icon" class="border-[#a4b0bf] rounded-full h-7 w-7 border flex items-center justify-center cursor-pointer"><i class="fa-solid fa-user text-sm"></i></span></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="bg-white">
+        <div class="w-11/12 mx-auto">
+            <div class="py-3 text-sm">
+                <span class="uppercase font-semibold"><a href={{path('app_dashboard')}} >dashboard</a></span>
+{#                {% if page_name is defined and page_name != null %} <span class="text-gray-600 font-semibold"> > <a href= {{path({{ route_name }})}} >{{page_name}}</a> </span> {% endif %}#}
+{#                {% if building_name is defined and building_name != null %} <span class="text-gray-600 font-semibold"> > <a href="" class="">{{building_name}}</a> </span> {% endif %}#}
+{#                {% if room_id is defined and room_id != null %} <span class="text-gray-600 font-semibold"> > {{room_id}} </span> {% endif %}#}
+{#                {% if sub_page is defined and sub_page != null %} <span class="text-gray-600 font-semibold"> > {{sub_page}} </span> {% endif %}#}
+            </div>
+        </div>
+    </div>
+    <main>
+        {% block body %}{% endblock %}
+    </main>
+</div>
+</body>
+</html>
