@@ -10,19 +10,19 @@
                     <p class="py-3 px-6">{{ message }}</p>
                 </div>
             {% endfor %}
-{#            <div class="">#}
-{#                {{form_start(search_form)}}#}
-{#                <div class="flex gap-5">#}
-{#                    <div class="">#}
-{#                        {{ form_row(search_form.name,{'attr':{'placeholder': 'Rechercher Nom','class':' w-full focus:outline-none border border-black rounded-md py-2 px-4'}}) }}#}
-{#                    </div>#}
-{#                    <button class="bg-blue-500 text-white rounded-md px-2">#}
-{#                        Recherche#}
-{#                    </button>#}
-{#                </div>#}
-{#                <div class="hidden">{{ form_rest(search_form) }}</div>#}
-{#                {{form_end(search_form)}}#}
-{#            </div>#}
+            <div class="">
+                {{form_start(search_form)}}
+                <div class="flex gap-5">
+                    <div class="">
+                        {{ form_row(search_form.query,{'attr':{'placeholder': 'propriétaire ou identifiant','class':' w-full focus:outline-none border border-black rounded-md py-2 px-4'}}) }}
+                    </div>
+                    <button class="bg-blue-500 text-white rounded-md px-2">
+                        Recherche
+                    </button>
+                </div>
+                <div class="hidden">{{ form_rest(search_form) }}</div>
+                {{form_end(search_form)}}
+            </div>
             <div class="bg-white">
                 <div class="">
                     <div class="p-5 flex justify-between items-center">

@@ -3,7 +3,9 @@
 namespace App\Controller\User;
 
 use App\Entity\Document;
+use App\Form\DocSearchType;
 use App\Form\DocumentType;
+use App\Models\DocumentSearch;
 use App\Repository\DocumentRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,10 +17,23 @@ use Symfony\Component\Routing\Annotation\Route;
 class DocumentController extends AbstractController
 {
     #[Route('/', name: 'app_document_index', methods: ['GET'])]
-    public function index(DocumentRepository $documentRepository): Response
+    public function index(DocumentRepository $documentRepository, Request $request, UserRepository $userRepository): Response
     {
+        $user = $userRepository->find(3);
+        $docSearch = new DocumentSearch();
+        $form = $this->createForm(DocSearchType::class, $docSearch);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $documents = $documentRepository->searchDocuments($docSearch);
+            return $this->render('document/index.html.twig', [
+                'documents' => $documents->getArrayResult(),
+                'search_form' => $form->createView()
+            ]);
+        }
         return $this->render('document/index.html.twig', [
             'documents' => $documentRepository->findAll(),
+            'search_form' => $form->createView()
         ]);
     }
 
