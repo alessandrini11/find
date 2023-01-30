@@ -3,8 +3,13 @@
 namespace App\Repository;
 
 use App\Entity\Declaration;
+use App\Models\DeclarationSearch;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+
+use Doctrine\ORM\Query;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @extends ServiceEntityRepository<Declaration>
@@ -39,6 +44,44 @@ class DeclarationRepository extends ServiceEntityRepository
         }
     }
 
+
+    public function searchDeclaration(DeclarationSearch $declarationSearch, UserInterface $user = null): Query
+    {
+        $query = $this->getDocuments($declarationSearch, $user);
+        return $query->getQuery();
+
+    }
+
+    private function getDocuments(DeclarationSearch $declarationSearch, UserInterface $user = null): QueryBuilder
+    {
+        $qb = $this->getOrderBycreatedAtDesc() ;
+        if($declarationSearch->getQuery()){
+            $qb->leftJoin('d.document', 'doc')
+                ->andWhere('doc.owner LIKE  :query')
+                ->setParameter('query', "%{$declarationSearch->getQuery()}%")
+                ->orderBy('doc.owner', 'ASC')
+            ;
+        }
+        if($user){
+            return $this->getCurrentUser($qb, $user);
+        }
+        return $qb;
+    }
+
+    private function getCurrentUser(QueryBuilder $qb, UserInterface $user): QueryBuilder
+    {
+        $qb->leftJoin('d.user', 'u')
+            ->andWhere($qb->expr()->eq('u.id', ':userId'))
+            ->setParameter('userId', $user->getId())
+        ;
+        return $qb;
+    }
+    private function getOrderByCreatedAtDesc(): QueryBuilder
+    {
+        return $this->createQueryBuilder('d')
+            ->orderBy('d.createdAt', 'DESC')
+            ;
+    }
 //    /**
 //     * @return Declaration[] Returns an array of Declaration objects
 //     */

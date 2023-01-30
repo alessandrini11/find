@@ -1,0 +1,47 @@
+{% extends 'dashboard.html.twig' %}
+
+{% block title %}Declaration{% endblock %}
+
+{% block body %}
+    <section class="w-11/12 mx-auto">
+        <table class="table">
+            <tbody class="flex flex-col space-y-5">
+            <tr class="flex space-x-2">
+                <th>Id</th>
+                <td>{{ declaration.id }}</td>
+            </tr>
+            <tr class="flex space-x-2">
+                <th>Document</th>
+                <td>{{ declaration.document.type }} - {{ declaration.document.owner }}</td>
+            </tr>
+            <tr class="flex space-x-2">
+                <th>Status</th>
+                <td>
+                    {% if declaration.status == 'found' %}
+                        <span class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded">{{ declaration.status }}</span>
+                    {% else %}
+                        <span class="bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded">{{ declaration.status }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+            <tr class="flex space-x-2">
+                <th>Récompense</th>
+                <td>{{ declaration.reward }}</td>
+            </tr>
+            <tr class="flex space-x-2">
+                <th>Description</th>
+                <td>{{ declaration.description }}</td>
+            </tr>
+            <tr class="flex space-x-2">
+                <th>Créé le</th>
+                <td>{{ declaration.createdAt ? declaration.createdAt|date('d-M-Y H:i:s') : ''  }}</td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="flex space-x-3 mt-5">
+            <a class="text-blue-500" href="{{ path('app_declaration_index') }}">back to list</a>
+            <a href="{{ path('app_declaration_edit', {'id': declaration.id}) }}"><i class="fa-solid fa-pen"></i></a>
+            {{ include('declaration/_delete_form.html.twig') }}
+        </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,101 @@
+{% extends 'dashboard.html.twig' %}
+
+{% block title %}Declaration{% endblock %}
+
+{% block body %}
+    <section class="py-7">
+        <div class="w-11/12 mx-auto space-y-10">
+            {% for message in app.flashes('success') %}
+                <div class="bg-green-200 text-green-600 ">
+                    <p class="py-3 px-6">{{ message }}</p>
+                </div>
+            {% endfor %}
+            <div class="">
+                {{form_start(search_form)}}
+                <div class="flex gap-5">
+                    <div class="">
+                        {{ form_row(search_form.query,{'attr':{'placeholder': 'propriétaire','class':' w-full focus:outline-none border border-black rounded-md py-2 px-4'}}) }}
+                    </div>
+                    <button class="bg-blue-500 text-white rounded-md px-2">
+                        Recherche
+                    </button>
+                </div>
+                <div class="hidden">{{ form_rest(search_form) }}</div>
+                {{form_end(search_form)}}
+            </div>
+            <div class="bg-white">
+                <div class="">
+                    <div class="p-5 flex justify-between items-center">
+                        <span class="font-semibold text-gray-700">Les Déclarations</span>
+                        <a class="p-2 bg-green-100 text-green-500 rounded flex items-center cursor-pointer space-x-2 hover:scale-110 transition-all ease-in-out " href={{ path('app_declaration_new') }} >
+                            <i class="fa-solid fa-plus"></i>
+                            <span class="text-sm font-thin">Ajouter</span>
+                        </a>
+                    </div>
+                    <div class="p-5 overflow-x-scroll">
+                        <table class="w-full">
+                            <thead class="bg-gray-100 text-gray-500">
+                            <tr class="uppercase text-xs">
+                                <th class="p-2">Document</th>
+                                <th class="p-2">Status</th>
+                                <th class="p-2">Recompense</th>
+                                <th class="p-2">Vues</th>
+                                <th class="p-2">Created At</th>
+                                <th class="p-2">Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for declaration in declarations %}
+                                <tr class="text-sm {% if loop.index % 2 == 0 %} bg-gray-50 {% endif %} hover:bg-gray-100">
+                                    <td class="">
+                                        <div class="px-1 py-2 text-left">
+                                            <span>{{declaration.document.type}} - {{declaration.document.owner}}</span>
+                                        </div>
+                                    </td>
+                                    <td class="">
+                                        <div class="px-1 py-2 text-center">
+                                            {% if declaration.status == 'found' %}
+                                                <span class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded">{{ declaration.status }}</span>
+                                            {% else %}
+                                                <span class="bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded">{{ declaration.status }}</span>
+                                            {% endif %}
+                                        </div>
+                                    </td>
+                                    <td class="">
+                                        <div class=" px-1 py-2 text-center">
+                                            {{declaration.reward}}
+                                        </div>
+                                    </td>
+                                    <td class="">
+                                        <div class=" px-1 py-2 text-center">
+                                            {{declaration.visitors | length}}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="text-center">{{declaration.createdAt | date('d M Y')}}</div>
+                                    </td>
+                                    <td>
+                                        <div class="flex justify-around px-2 text-gray-600">
+                                            <a title="detail" href="{{path('app_declaration_show', {id: declaration.id})}}" class="transition-all ease-in hover:scale-150"><i class="fa-solid fa-eye"></i></a>
+                                            <a title="modifier" href="{{path('app_declaration_edit', {id: declaration.id})}}" class="transition-all ease-in hover:scale-150"><i class="fa-solid fa-pen"></i></a>
+                                            {{ include('declaration/_delete_form.html.twig') }}
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="18">no records found</td>
+                                </tr>
+                            {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="navigation">
+                        {#                        {{ knp_pagination_render(rooms) }}#}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

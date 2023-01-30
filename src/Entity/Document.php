@@ -156,4 +156,9 @@ class Document
     {
         return $this->type ." - ". $this->getUser()->getFirstname(). " ". $this->getUser()->getLastname();
     }
+
+    public function getLabel(): ?string
+    {
+        return $this->getType(). " - ". $this->getOwner();
+    }
 }

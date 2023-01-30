@@ -20,19 +20,20 @@ class DocumentController extends AbstractController
     public function index(DocumentRepository $documentRepository, Request $request, UserRepository $userRepository): Response
     {
         $user = $userRepository->find(3);
+        $documents = $user->getDocuments();
         $docSearch = new DocumentSearch();
         $form = $this->createForm(DocSearchType::class, $docSearch);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid())
         {
-            $documents = $documentRepository->searchDocuments($docSearch);
+            $documents = $documentRepository->searchDocuments($docSearch, $user);
             return $this->render('document/index.html.twig', [
                 'documents' => $documents->getArrayResult(),
                 'search_form' => $form->createView()
             ]);
         }
         return $this->render('document/index.html.twig', [
-            'documents' => $documentRepository->findAll(),
+            'documents' => $documents,
             'search_form' => $form->createView()
         ]);
     }

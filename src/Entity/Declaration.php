@@ -15,8 +15,8 @@ class Declaration
 {
     use DateTrait;
 
-    const LOST = 'lost';
-    const FOUND = 'found';
+    const LOST = 'perdu';
+    const FOUND = 'trouvé';
 
     const STATUS = [
         self::LOST => 'perdu',
