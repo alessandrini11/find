@@ -2,48 +2,36 @@
 {% extends '@EasyAdmin/page/content.html.twig' %}
 {% block title 'Dashboard' %}
 {% block content_title %}Dashboard{% endblock %}
-{% block page_actions %}
-    <a class="btn btn-primary" href="...">Some Action</a>
-{% endblock %}
 {% block main %}
     <section>
         <div class="w-11/12 mx-auto">
-            <h2 class="text-2xl font-medium">General Statistics</h2>
+            <h2 class="text-2xl font-medium">Statistiques</h2>
             <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
 
                 <div class="grid grid-cols-5 gap-3 bg-white rounded-md shadow-md p-2">
                     <div class="bg-teal-500 col-span-2 flex justify-center items-center text-white rounded-md p-3 ">
-                        <i class="text-xl fa fa-house"></i>
+                        <i class="text-xl fa-solid fa-book"></i>
                     </div>
                     <div class="col-span-3 flex flex-col justify-between">
-                        <span>Buildings</span>
+                        <span>Documents</span>
                         <span class="font-semibold">{{documents | length}}</span>
                     </div>
                 </div>
                 <div class="grid grid-cols-5 gap-3 bg-white rounded-md shadow-md p-2">
                     <div class="bg-orange-500 col-span-2 flex justify-center items-center text-white rounded-md p-3 ">
-                        <i class="text-xl fa fa-bed"></i>
+                        <i class="text-xl fa-solid fa-newspaper"></i>
                     </div>
                     <div class="col-span-3 flex flex-col justify-between">
-                        <span>Rooms</span>
+                        <span>Declarations</span>
                         <span class="font-semibold">{{declaration | length}}</span>
                     </div>
                 </div>
                 <div class="grid grid-cols-5 gap-3 bg-white rounded-md shadow-md p-2">
-                    <div class="bg-green-500 col-span-2 flex justify-center items-center text-white rounded-md p-3 ">
-                        <i class="text-xl fa fa-pencil"></i>
-                    </div>
-                    <div class="col-span-3 flex flex-col justify-between">
-                        <span>Ads</span>
-                        <span class="font-semibold">{{documents | length}}</span>
-                    </div>
-                </div>
-                <div class="grid grid-cols-5 gap-3 bg-white rounded-md shadow-md p-2">
                     <div class="bg-fuchsia-500 col-span-2 flex justify-center items-center text-white rounded-md p-3 ">
-                        <i class="text-xl fa fa-cogs"></i>
+                        <i class="text-xl fa-solid fa-box-archive"></i>
                     </div>
                     <div class="col-span-3 flex flex-col justify-between">
-                        <span>Ad Campaigns</span>
+                        <span>Documents Trouvés</span>
                         <span class="font-semibold">{{found_documents | length}}</span>
                     </div>
                 </div>
@@ -52,7 +40,7 @@
                         <i class="text-xl fa fa-user"></i>
                     </div>
                     <div class="col-span-3 flex flex-col justify-between">
-                        <span>User</span>
+                        <span>Utilisateurs</span>
                         <span class="font-semibold">{{users | length}}</span>
                     </div>
                 </div>
@@ -61,334 +49,11 @@
                         <i class="text-xl fa fa-user-group"></i>
                     </div>
                     <div class="col-span-3 flex flex-col justify-between">
-                        <span>Visitors</span>
+                        <span>Visiteurs</span>
                         <p class=""><span class="font-semibold mr-5">{{visitors | length}}</span><span><i class="text-green-500 fa fa-arrow-up"></i><i class="text-red-500 fa fa-arrow-down"></i></span></p>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="w-11/12 mx-auto my-5">
-            <h2 class="text-2xl font-medium">Pendings</h2>
-{#            <div class="grid grid-cols-1 md:grid-cols-4 gap-3">#}
-{#                <div class="grid grid-cols-5 gap-3 bg-white rounded-md shadow-md p-2">#}
-{#                    <div class="bg-blue-500 col-span-2 flex justify-center items-center text-white rounded-md p-3 ">#}
-{#                        <i class="text-xl fa fa-user"></i>#}
-{#                    </div>#}
-{#                    <div class="col-span-3 flex flex-col justify-between">#}
-{#                        <span>User</span>#}
-{#                        <span class="font-semibold">{{pending_users | length}}</span>#}
-{#                    </div>#}
-{#                </div>#}
-{#                <div class="grid grid-cols-5 gap-3 bg-white rounded-md shadow-md p-2">#}
-{#                    <div class="bg-teal-500 col-span-2 flex justify-center items-center text-white rounded-md p-3 ">#}
-{#                        <i class="text-xl fa fa-house"></i>#}
-{#                    </div>#}
-{#                    <div class="col-span-3 flex flex-col justify-between">#}
-{#                        <span>Buildings</span>#}
-{#                        <span class="font-semibold">{{pending_buildings | length}}</span>#}
-{#                    </div>#}
-{#                </div>#}
-{#                <div class="grid grid-cols-5 gap-3 bg-white rounded-md shadow-md p-2">#}
-{#                    <div class="bg-orange-500 col-span-2 flex justify-center items-center text-white rounded-md p-3 ">#}
-{#                        <i class="text-xl fa fa-bed"></i>#}
-{#                    </div>#}
-{#                    <div class="col-span-3 flex flex-col justify-between">#}
-{#                        <span>Rooms</span>#}
-{#                        <span class="font-semibold">{{pending_rooms | length}}</span>#}
-{#                    </div>#}
-{#                </div>#}
-{#            </div>#}
-        </div>
-        <div class="w-11/12 mx-auto my-5">
-            <h2 class="text-2xl font-medium">Blacklisted</h2>
-{#            <div class="grid grid-cols-1 md:grid-cols-4 gap-3">#}
-{#                <div class="grid grid-cols-5 gap-3 bg-white rounded-md shadow-md p-2">#}
-{#                    <div class="bg-blue-500 col-span-2 flex justify-center items-center text-white rounded-md p-3 ">#}
-{#                        <i class="text-xl fa fa-user"></i>#}
-{#                    </div>#}
-{#                    <div class="col-span-3 flex flex-col justify-between">#}
-{#                        <span>User</span>#}
-{#                        <span class="font-semibold">{{disabled_users | length}}</span>#}
-{#                    </div>#}
-{#                </div>#}
-{#                <div class="grid grid-cols-5 gap-3 bg-white rounded-md shadow-md p-2">#}
-{#                    <div class="bg-teal-500 col-span-2 flex justify-center items-center text-white rounded-md p-3 ">#}
-{#                        <i class="text-xl fa fa-house"></i>#}
-{#                    </div>#}
-{#                    <div class="col-span-3 flex flex-col justify-between">#}
-{#                        <span>Buildings</span>#}
-{#                        <span class="font-semibold">{{found_documents | length}}</span>#}
-{#                    </div>#}
-{#                </div>#}
-{#                <div class="grid grid-cols-5 gap-3 bg-white rounded-md shadow-md p-2">#}
-{#                    <div class="bg-orange-500 col-span-2 flex justify-center items-center text-white rounded-md p-3 ">#}
-{#                        <i class="text-xl fa fa-bed"></i>#}
-{#                    </div>#}
-{#                    <div class="col-span-3 flex flex-col justify-between">#}
-{#                        <span>Rooms</span>#}
-{#                        <span class="font-semibold">{{documents | length}}</span>#}
-{#                    </div>#}
-{#                </div>#}
-{#            </div>#}
-        </div>
-        <div class="w-11/12 mx-auto my-5">
-            <h2 class="text-2xl font-medium">Deleted</h2>
-{#            <div class="grid grid-cols-1 md:grid-cols-4 gap-3">#}
-{#                <div class="grid grid-cols-5 gap-3 bg-white rounded-md shadow-md p-2">#}
-{#                    <div class="bg-teal-500 col-span-2 flex justify-center items-center text-white rounded-md p-3 ">#}
-{#                        <i class="text-xl fa fa-house"></i>#}
-{#                    </div>#}
-{#                    <div class="col-span-3 flex flex-col justify-between">#}
-{#                        <span>Buildings</span>#}
-{#                        <span class="font-semibold">{{deleted_buildings | length}}</span>#}
-{#                    </div>#}
-{#                </div>#}
-{#                <div class="grid grid-cols-5 gap-3 bg-white rounded-md shadow-md p-2">#}
-{#                    <div class="bg-orange-500 col-span-2 flex justify-center items-center text-white rounded-md p-3 ">#}
-{#                        <i class="text-xl fa fa-bed"></i>#}
-{#                    </div>#}
-{#                    <div class="col-span-3 flex flex-col justify-between">#}
-{#                        <span>Rooms</span>#}
-{#                        <span class="font-semibold">{{deleted_rooms | length}}</span>#}
-{#                    </div>#}
-{#                </div>#}
-{#            </div>#}
-        </div>
     </section>
-    <section class="">
-        <div class="w-11/12 mx-auto">
-            <h3 class="text-3xl font-medium text-gray-600">10 districts with most buildings</h3>
-            <div class="">
-                <div class="">
-                    <div class="min-w-screen flex items-center justify-center font-sans overflow-hidden">
-                        <div class="w-full">
-                            <div class="bg-white shadow-md rounded my-6 overflow-x-auto">
-                                <table class="min-w-max w-full table-auto">
-                                    <thead>
-                                    <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-                                        <th class="py-3 px-6 text-center">District</th>
-                                        <th class="py-3 px-6 text-center">Buildings</th>
-                                        <th class="py-3 px-6 text-center">Town</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody class="text-gray-600 text-sm font-light">
-{#                                    {% for district in districts_most_buildings %}#}
-{#                                        <tr class="border-b border-gray-200 {{ loop.index % 2 == 0 ? "bg-gray-50" : ""}} hover:bg-gray-100 text-sm">#}
-{#                                            <td class="py-3 px-6 text-center">#}
-{#                                                <div class="flex items-center justify-center">#}
-{#                                                    <span class="">{{district.name}}</span>#}
-{#                                                </div>#}
-{#                                            </td>#}
-{#                                            <td class="py-3 px-6 text-center">#}
-{#                                                <div class="flex items-center justify-center">#}
-{#                                                    <span class="">{{district.count }}</span>#}
-{#                                                </div>#}
-{#                                            </td>#}
-{#                                            <td class="py-3 px-6 text-center">#}
-{#                                                <div class="flex items-center justify-center">#}
-{#                                                    <span class="">{{district.town }}</span>#}
-{#                                                </div>#}
-{#                                            </td>#}
-{#                                        </tr>#}
-{#                                    {% else %}#}
-{#                                        <tr>#}
-{#                                            <td colspan="6">no records found</td>#}
-{#                                        </tr>#}
-{#                                    {% endfor %}#}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section>
-    <section class="">
-        <div class="w-11/12 mx-auto">
-            <h3 class="text-3xl font-medium text-gray-600">10 most visited districts</h3>
-            <div class="">
-                <div class="">
-                    <div class="min-w-screen flex items-center justify-center font-sans overflow-hidden">
-                        <div class="w-full">
-                            <div class="bg-white shadow-md rounded my-6 overflow-x-auto">
-                                <table class="min-w-max w-full table-auto">
-                                    <thead>
-                                    <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-                                        <th class="py-3 px-6 text-center">District</th>
-                                        <th class="py-3 px-6 text-center">Visitors</th>
-                                        <th class="py-3 px-6 text-center">Average price</th>
-                                        <th class="py-3 px-6 text-center">Town</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody class="text-gray-600 text-sm font-light">
-{#                                    {% for district in most_visited_districts %}#}
-{#                                        <tr class="border-b border-gray-200 {{ loop.index % 2 == 0 ? "bg-gray-50" : ""}} hover:bg-gray-100 text-sm">#}
-{#                                            <td class="py-3 px-6 text-center">#}
-{#                                                <div class="flex items-center justify-center">#}
-{#                                                    <span class="">{{district.name}}</span>#}
-{#                                                </div>#}
-{#                                            </td>#}
-{#                                            <td class="py-3 px-6 text-center">#}
-{#                                                <div class="flex items-center justify-center">#}
-{#                                                    {% if district.visitors >= 1000000 %}#}
-{#                                                        <span class="">{{ reducenumber(district.visitors) |number_format(1) }} M</span>#}
-{#                                                    {% elseif district.visitors >= 1000 %}#}
-{#                                                        <span class="">{{ reducenumber(district.visitors) |number_format(1) }} k</span>#}
-{#                                                    {% else %}#}
-{#                                                        <span class="">{{ district.visitors }}</span>#}
-{#                                                    {% endif %}#}
-{#                                                </div>#}
-{#                                            </td>#}
-{#                                            <td class="py-3 px-6 text-center">#}
-{#                                                <div class="flex items-center justify-center">#}
-{#                                                    <span class="">{{district.average_room}} XAF</span>#}
-{#                                                </div>#}
-{#                                            </td>#}
-{#                                            <td class="py-3 px-6 text-center">#}
-{#                                                <div class="flex items-center justify-center">#}
-{#                                                    <span class="">{{district.town }}</span>#}
-{#                                                </div>#}
-{#                                            </td>#}
-{#                                        </tr>#}
-{#                                    {% else %}#}
-{#                                        <tr>#}
-{#                                            <td colspan="6">no records found</td>#}
-{#                                        </tr>#}
-{#                                    {% endfor %}#}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section>
-    <section class="">
-        <div class="w-11/12 mx-auto">
-            <h3 class="text-3xl font-medium text-gray-600">10 users with most visits</h3>
-            <div class="">
-                <div class="">
-                    <div class="min-w-screen flex items-center justify-center font-sans overflow-hidden">
-                        <div class="w-full">
-                            <div class="bg-white shadow-md rounded my-6 overflow-x-auto">
-                                <table class="min-w-max w-full table-auto">
-                                    <thead>
-                                    <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-                                        <th class="py-3 px-6 text-center">name</th>
-                                        <th class="py-3 px-6 text-center">Visitors</th>
-                                        <th class="py-3 px-6 text-center">buildings</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody class="text-gray-600 text-sm font-light">
-{#                                    {% for user in users_most_visits %}#}
-{#                                        <tr class="border-b border-gray-200 {{ loop.index % 2 == 0 ? "bg-gray-50" : ""}} hover:bg-gray-100 text-sm">#}
-{#                                            <td class="py-3 px-6 text-center">#}
-{#                                                <div class="flex items-center justify-center">#}
-{#                                                    <span class="">{{user.name}}</span>#}
-{#                                                </div>#}
-{#                                            </td>#}
-{#                                            <td class="py-3 px-6 text-center">#}
-{#                                                <div class="flex items-center justify-center">#}
-{#                                                    {% if user.visitors >= 1000000 %}#}
-{#                                                        <span class="">{{ reducenumber(user.visitors) |number_format(1) }} M</span>#}
-{#                                                    {% elseif user.visitors >= 1000 %}#}
-{#                                                        <span class="">{{ reducenumber(user.visitors) |number_format(1) }} k</span>#}
-{#                                                    {% else %}#}
-{#                                                        <span class="">{{ user.visitors }}</span>#}
-{#                                                    {% endif %}#}
-{#                                                </div>#}
-{#                                            </td>#}
-{#                                            <td class="py-3 px-6 text-center">#}
-{#                                                <div class="flex items-center justify-center">#}
-{#                                                    <span class="">{{user.buildings}}</span>#}
-{#                                                </div>#}
-{#                                            </td>#}
-{#                                        </tr>#}
-{#                                    {% else %}#}
-{#                                        <tr>#}
-{#                                            <td colspan="6">no records found</td>#}
-{#                                        </tr>#}
-{#                                    {% endfor %}#}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section>
-    <section class="">
-        <div class="w-11/12 mx-auto">
-            <h3 class="text-3xl font-medium text-gray-600">10 most viewed adcampaign</h3>
-            <div class="">
-                <div class="">
-                    <div class="min-w-screen flex items-center justify-center font-sans overflow-hidden">
-                        <div class="w-full">
-                            <div class="bg-white shadow-md rounded my-6 overflow-x-auto">
-                                <table class="min-w-max w-full table-auto">
-                                    <thead>
-                                    <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-                                        <th class="py-3 px-6 text-center">ad</th>
-                                        <th class="py-3 px-6 text-center">view</th>
-                                        <th class="py-3 px-6 text-center">clicks</th>
-                                        <th class="py-3 px-6 text-center">durée</th>
-                                    </tr>
-                                    </thead>
-{#                                    <tbody class="text-gray-600 text-sm font-light">#}
-{#                                    {% for adcampaign in most_viewed_adcampaign %}#}
-{#                                        <tr class="border-b border-gray-200 {{ loop.index % 2 == 0 ? "bg-gray-50" : ""}} hover:bg-gray-100 text-sm">#}
-{#                                            <td class="py-3 px-6 text-center">#}
-{#                                                <div class="flex items-center justify-center">#}
-{#                                                    <span class="">{{adcampaign.ad}}</span>#}
-{#                                                </div>#}
-{#                                            </td>#}
-{#                                            <td class="py-3 px-6 text-center">#}
-{#                                                <div class="flex items-center justify-center">#}
-{#                                                    {% if adcampaign.visitors >= 1000000 %}#}
-{#                                                        <span class="">{{ reducenumber(adcampaign.visitors) |number_format(1) }} M</span>#}
-{#                                                    {% elseif adcampaign.visitors >= 1000 %}#}
-{#                                                        <span class="">{{ reducenumber(adcampaign.visitors) |number_format(1) }} k</span>#}
-{#                                                    {% else %}#}
-{#                                                        <span class="">{{ adcampaign.visitors }}</span>#}
-{#                                                    {% endif %}#}
-{#                                                </div>#}
-{#                                            </td>#}
-{#                                            <td class="py-3 px-6 text-center">#}
-{#                                                <div class="flex items-center justify-center">#}
-{#                                                    {% if adcampaign.clicks >= 1000000 %}#}
-{#                                                        <span class="">{{ reducenumber(adcampaign.clicks) |number_format(1) }} M</span>#}
-{#                                                    {% elseif adcampaign.clicks >= 1000 %}#}
-{#                                                        <span class="">{{ reducenumber(adcampaign.clicks) |number_format(1) }} k</span>#}
-{#                                                    {% else %}#}
-{#                                                        <span class="">{{ adcampaign.clicks }}</span>#}
-{#                                                    {% endif %}#}
-{#                                                </div>#}
-{#                                            </td>#}
-{#                                            <td class="py-3 px-6 text-center">#}
-{#                                                <div class="flex items-center justify-center">#}
-{#                                                    <span class="">{{adcampaign.duration}}</span>#}
-{#                                                </div>#}
-{#                                            </td>#}
-{#                                        </tr>#}
-{#                                    {% else %}#}
-{#                                        <tr>#}
-{#                                            <td colspan="6">no records found</td>#}
-{#                                        </tr>#}
-{#                                    {% endfor %}#}
-{#                                    </tbody>#}
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section>
 {% endblock %}
