@@ -1,0 +1,176 @@
+{% extends 'dashboard.html.twig' %}
+
+{% block title %}Archive index{% endblock %}
+
+{% block body %}
+    <section class="py-7">
+        <div class="w-11/12 mx-auto space-y-10">
+            {% for message in app.flashes('success') %}
+                <div class="bg-green-200 text-green-600 ">
+                    <p class="py-3 px-6">{{ message }}</p>
+                </div>
+            {% endfor %}
+{#            <div class="">#}
+{#                {{form_start(search_form)}}#}
+{#                <div class="flex gap-5">#}
+{#                    <div class="">#}
+{#                        {{ form_row(search_form.query,{'attr':{'placeholder': 'propriétaire','class':' w-full focus:outline-none border border-black rounded-md py-2 px-4'}}) }}#}
+{#                    </div>#}
+{#                    <button class="bg-blue-500 text-white rounded-md px-2">#}
+{#                        Recherche#}
+{#                    </button>#}
+{#                </div>#}
+{#                <div class="hidden">{{ form_rest(search_form) }}</div>#}
+{#                {{form_end(search_form)}}#}
+{#            </div>#}
+            <div class="bg-white">
+                <div class="">
+                    <div class="p-5 flex justify-between items-center">
+                        <span class="font-semibold text-gray-700">Les Archives</span>
+                        <a class="p-2 bg-green-100 text-green-500 rounded flex items-center cursor-pointer space-x-2 hover:scale-110 transition-all ease-in-out " href={{ path('app_archive_new') }} >
+                            <i class="fa-solid fa-plus"></i>
+                            <span class="text-sm font-thin">Ajouter</span>
+                        </a>
+                    </div>
+                    <div class="p-5 overflow-x-scroll">
+                        <table class="w-full">
+                            <thead class="bg-gray-100 text-gray-500">
+                            <tr class="uppercase text-xs">
+                                <th class="p-2">Déclaration</th>
+                                <th class="p-2">Validation Proprietaire</th>
+                                <th class="p-2">Acteur</th>
+                                <th class="p-2">Validation Acteur</th>
+                                <th class="p-2">Created At</th>
+                                <th class="p-2">Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for archive in archives %}
+                                <tr class="text-sm {% if loop.index % 2 == 0 %} bg-gray-50 {% endif %} hover:bg-gray-100">
+                                    <td class="">
+                                        <div class="px-1 py-2 text-left">
+                                            <span> {{ archive.owner.id }} {{archive.declaration.document.type}} - {{archive.declaration.document.owner}}</span>
+                                        </div>
+                                    </td>
+                                    <td class="">
+                                        <div class="px-1 py-2 text-center">
+                                            {% if user and archive.owner.id == user.id  %}
+                                                {% if archive.ownerValidation %}
+                                                    <span class="bg-green-100 text-green-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded">validé</span>
+                                                {% else %}
+                                                    <label class="relative inline-flex items-center mb-4 cursor-pointer">
+                                                        <input onclick="handleClick({{ archive.id }}, true)" type="checkbox" value="" class="sr-only peer validate">
+                                                        <div class="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                                                    </label>
+                                                {% endif %}
+                                            {% else %}
+                                                {% if archive.ownerValidation %}
+                                                    <span class="bg-green-100 text-green-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded">validé</span>
+                                                {% else %}
+                                                    <span class="bg-orange-100 text-orange-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded">en attente</span>
+                                                {% endif %}
+                                            {% endif %}
+                                        </div>
+                                    </td>
+                                    <td class="">
+                                        <div class="px-1 py-2 text-left">
+                                            {% if user and archive.owner.id == user.id %}
+                                                <span>{{ archive.actor }}</span>
+                                            {% else %}
+                                                <span>{{ archive.owner }}</span>
+                                            {% endif %}
+                                        </div>
+                                    </td>
+                                    <td class="">
+                                        <div class="px-1 py-2 text-center">
+                                            {% if user and archive.owner.id != user.id  %}
+                                                {% if archive.actorValidation %}
+                                                    <span class="bg-green-100 text-green-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded">validé</span>
+                                                {% else %}
+                                                    {% if archive.ownerValidation %}
+                                                        <label class="relative inline-flex items-center mb-4 cursor-pointer">
+                                                            <input onclick="handleClick({{ archive.id }}, false)" type="checkbox" value="" class="sr-only peer validate">
+                                                            <div class="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                                                        </label>
+                                                    {% endif %}
+                                                {% endif %}
+                                            {% else %}
+                                                {% if archive.actorValidation %}
+                                                    <span class="bg-green-100 text-green-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded">validé</span>
+                                                {% else %}
+                                                    <span class="bg-orange-100 text-orange-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded">en attente</span>
+                                                {% endif %}
+                                            {% endif %}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="text-center">{{archive.createdAt | date('d M Y')}}</div>
+                                    </td>
+                                    <td>
+                                        <div class="flex justify-around px-2 text-gray-600">
+                                            {% if user and archive.owner.id == user.id  %}
+                                                <a title="modifier" href="{{ path('app_archive_edit', {'id': archive.id}) }}" class="transition-all ease-in hover:scale-150"><i class="fa-solid fa-pen"></i></a>
+                                                {{ include('archive/_delete_form.html.twig') }}
+                                            {% endif %}
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="18">no records found</td>
+                                </tr>
+                            {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="navigation">
+                        {#                        {{ knp_pagination_render(rooms) }}#}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% block javascripts %}
+        <script>
+            function handleClick (id, isOwner = false){
+                if(isOwner)
+                {
+                    fetch('validate/' + id, {
+                        method: 'POST',
+                        headers: {
+                            "Content-type": "application/json",
+                        },
+                        body: JSON.stringify({"isOwner": true})
+                    })
+                    .then(response => {
+                        if(response.status === 200){
+                            window.location.href = ""
+                        }
+                    })
+                    .catch(error => {
+                        window.location.href = ""
+                        console.log(error)
+                    })
+                } else {
+                    fetch('validate/' + id, {
+                        method: 'POST',
+                        headers: {
+                            "Content-type": "application/json",
+                        },
+                        body: JSON.stringify({"isOwner": false})
+                    })
+                    .then(response => {
+                        if(response.status === 200){
+                            window.location.href = ""
+                        }
+                    })
+                    .catch(error => {
+                        window.location.href = ""
+                        console.log(error)
+                    })
+                }
+            }
+        </script>
+    {% endblock %}
+{% endblock %}

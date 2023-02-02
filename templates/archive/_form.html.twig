@@ -1,0 +1,26 @@
+{{ form_start(form) }}
+<div class="flex flex-col-reverse lg:flex-row space-y-5 lg:space-y-0 lg:space-x-5">
+    <div class="flex-[3]">
+        <div class="border bg-white rounded">
+            <div id="personnal-details" class="p-5">
+                <div class="space-y-5">
+                    <div class="grid gap-5">
+                        <div class="space-y-2">
+                            <label class="block" for="numberroom">Déclaration</label>
+                            {{ form_row(form.declaration) }}
+                        </div>
+                        <div class="space-y-2">
+                            <label class="block" for="numberroom">Acteur</label>
+                            {{ form_row(form.actor) }}
+                        </div>
+
+                    </div>
+                    <div class="lg:flex justify-end hidden">
+                        <button class="bg-blue-500 rounded text-white p-3 w-full lg:w-fit" type="submit">{{ button_label|default('Valider') }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{ form_end(form) }}

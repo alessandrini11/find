@@ -180,4 +180,8 @@ class Declaration
     {
         return $this->getDocument();
     }
+    public function getLabel(): ?string
+    {
+        return $this->getDocument()->getType(). " - ". $this->getDocument()->getOwner();
+    }
 }

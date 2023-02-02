@@ -4,7 +4,9 @@ namespace App\Repository;
 
 use App\Entity\Archive;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @extends ServiceEntityRepository<Archive>
@@ -38,6 +40,18 @@ class ArchiveRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
+    public function findRelated(UserInterface $user): array
+    {
+        $qb = $this->createQueryBuilder('a');
+        return $qb->where($qb->expr()->eq('a.owner', ':userId'))
+            ->orWhere($qb->expr()->eq('a.actor', ':userId'))
+            ->setParameter('userId', $user->getId())
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
 
 //    /**
 //     * @return Archive[] Returns an array of Archive objects

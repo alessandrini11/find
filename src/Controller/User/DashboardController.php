@@ -2,10 +2,6 @@
 
 namespace App\Controller\User;
 
-use App\Repository\ArchiveRepository;
-use App\Repository\DeclarationRepository;
-use App\Repository\DocumentRepository;
-use App\Repository\TransactionRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;

@@ -1,0 +1,24 @@
+{% extends 'dashboard.html.twig' %}
+
+{% block title %}New Archive{% endblock %}
+
+{% block body %}
+    <section class="">
+        <div class="bg-gradient-to-b from-violet-300 to-violet-900 h-48"></div>
+    </section>
+    <section class="-mt-40 lg:-mt-10 pb-10">
+        <div class="w-11/12 mx-auto">
+            {{ include('archive/_form.html.twig') }}
+        </div>
+    </section>
+
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script >
+        $('.doc_type').select2();
+        const selects = document.getElementsByClassName('select2')
+        for (let i = 0; i < selects.length; i++){
+            selects[i].style.width = "100%"
+        }
+    </script>
+{% endblock %}
