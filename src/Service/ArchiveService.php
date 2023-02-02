@@ -3,6 +3,8 @@
 namespace App\Service;
 
 use App\Entity\Archive;
+use App\Entity\Declaration;
+use App\Entity\User;
 use App\Exceptions\Api\ForbiddenException;
 use App\Exceptions\Api\NotFoundException as ApiNotFoundException;
 use App\Exceptions\NotFoundException;
@@ -30,6 +32,16 @@ class ArchiveService
             throw new NotFoundException();
         }
         return $archive;
+    }
+
+    public function getUserToPay(Archive $archive): User
+    {
+        $declaration = $archive->getDeclaration();
+        if($declaration->getStatus() === Declaration::LOST)
+        {
+            return $archive->getActor();
+        }
+        return $archive->getOwner();
     }
 
     public function getValidationStatus(Archive $archive): bool

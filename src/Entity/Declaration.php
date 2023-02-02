@@ -48,6 +48,9 @@ class Declaration
     #[ORM\ManyToMany(targetEntity: Visitor::class, mappedBy: 'declarations')]
     private Collection $visitors;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $completed = null;
+
     public function __construct()
     {
         $this->archives = new ArrayCollection();
@@ -183,5 +186,17 @@ class Declaration
     public function getLabel(): ?string
     {
         return $this->getDocument()->getType(). " - ". $this->getDocument()->getOwner();
+    }
+
+    public function isCompleted(): ?bool
+    {
+        return $this->completed;
+    }
+
+    public function setCompleted(?bool $completed): self
+    {
+        $this->completed = $completed;
+
+        return $this;
     }
 }

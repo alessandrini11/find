@@ -21,13 +21,13 @@ class ArchiveType extends AbstractType
                 'label' => false,
                 'query_builder' => function (EntityRepository $er){
                     $qb = $er->createQueryBuilder('d')
-                        ->andWhere('d.status = :status')
-                        ->setParameter('status', 'perdu');
+                        ->andWhere('d.completed = :completed')
+                        ->setParameter('completed', false);
 
                     return $qb
                         ->leftJoin('d.user', 'u')
                         ->andWhere($qb->expr()->eq('u.id', ':userId'))
-                        ->setParameter('userId', 3)
+                        ->setParameter('userId', 2)
                         ;
                 },
                 'attr' => [
@@ -42,7 +42,7 @@ class ArchiveType extends AbstractType
 
                     return $qb
                         ->andWhere($qb->expr()->neq('u.id', ':userId'))
-                        ->setParameter('userId', 3)
+                        ->setParameter('userId', 2)
                         ;
                 },
                 'label' => false,

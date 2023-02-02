@@ -45,7 +45,7 @@ class DeclarationType extends AbstractType
                     return $qb
                         ->leftJoin('d.user', 'u')
                         ->andWhere($qb->expr()->eq('u.id', ':userId'))
-                        ->setParameter('userId', 3)
+                        ->setParameter('userId', 2)
                         ;
                 },
                 'choice_label' => 'label'

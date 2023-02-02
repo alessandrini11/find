@@ -3,10 +3,15 @@
 namespace App\Controller\User;
 
 use App\Entity\Archive;
+use App\Entity\Declaration;
+use App\Entity\Transaction;
 use App\Form\ArchiveType;
 use App\Repository\ArchiveRepository;
+use App\Repository\FundRepository;
 use App\Repository\UserRepository;
 use App\Service\ArchiveService;
+use App\Service\DeclarationService;
+use App\Service\TransactionService;
 use App\Service\UserService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,7 +24,7 @@ class ArchiveController extends AbstractController
     #[Route('/', name: 'app_archive_index', methods: ['GET'])]
     public function index(ArchiveRepository $archiveRepository, UserRepository $userRepository): Response
     {
-        $user = $userRepository->find(3);
+        $user = $userRepository->find(4);
         $archives = $archiveRepository->findRelated($user);
         return $this->render('archive/index.html.twig', [
             'archives' => $archives,
@@ -30,7 +35,7 @@ class ArchiveController extends AbstractController
     #[Route('/new', name: 'app_archive_new', methods: ['GET', 'POST'])]
     public function new(Request $request, ArchiveRepository $archiveRepository, UserRepository $userRepository): Response
     {
-        $user = $userRepository->find(3);
+        $user = $userRepository->find(2);
         $archive = new Archive();
         $form = $this->createForm(ArchiveType::class, $archive);
         $form->handleRequest($request);
@@ -70,7 +75,7 @@ class ArchiveController extends AbstractController
     ): Response
     {
         $archiveService->getValidationStatus($archive);
-        $user = $userRepository->find(3);
+        $user = $userRepository->find(2);
         $userService->getIsOwner($user, $archive);
         $form = $this->createForm(ArchiveType::class, $archive);
         $form->handleRequest($request);
@@ -111,7 +116,15 @@ class ArchiveController extends AbstractController
     }
 
     #[Route('/validate/{id}', name: 'app_archive_validate', methods: ['POST'])]
-    public function validateArchive(int $id, Request $request, ArchiveService $archiveService, ArchiveRepository $archiveRepository): Response
+    public function validateArchive(
+        int $id,
+        Request $request,
+        ArchiveService $archiveService,
+        ArchiveRepository $archiveRepository,
+        TransactionService $transactionService,
+        FundRepository $fundRepository,
+        DeclarationService $declarationService
+    ): Response
     {
         $isOwner = json_decode($request->getContent())->isOwner;
         $archive = $archiveService->findOrFail($id, true);
@@ -119,7 +132,19 @@ class ArchiveController extends AbstractController
         if($isOwner){
             $archive->setOwnerValidation(true);
         } else {
-            $archive->isOwnerValidation() ?? $archive->setActorValidation(true);
+            if($archive->isOwnerValidation())
+            {
+                $archive->setActorValidation(true);
+                $userToPay = $archiveService->getUserToPay($archive);
+                $fund = $fundRepository->findOneBy(["user" => $userToPay]);
+                $transactionService->create(
+                    $fund,
+                    50,
+                    Transaction::TRANSFER,
+                    Transaction::TRANSFER_FROM_ARCHIVES.' '. $archive->getDeclaration()->getLabel(),
+                );
+                $declarationService->setCompleted($archive->getDeclaration());
+            }
         }
         $archiveRepository->save($archive, true);
         return $this->json([

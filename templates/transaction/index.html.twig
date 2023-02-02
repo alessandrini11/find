@@ -1,0 +1,81 @@
+{% extends 'dashboard.html.twig' %}
+
+{% block title %}Transaction index{% endblock %}
+
+{% block body %}
+    <section class="py-7">
+        <div class="w-11/12 mx-auto space-y-10">
+{#            <div class="">#}
+{#                {{form_start(search_form)}}#}
+{#                <div class="flex gap-5">#}
+{#                    <div class="">#}
+{#                        {{ form_row(search_form.query,{'attr':{'placeholder': 'propriétaire','class':' w-full focus:outline-none border border-black rounded-md py-2 px-4'}}) }}#}
+{#                    </div>#}
+{#                    <button class="bg-blue-500 text-white rounded-md px-2">#}
+{#                        Recherche#}
+{#                    </button>#}
+{#                </div>#}
+{#                <div class="hidden">{{ form_rest(search_form) }}</div>#}
+{#                {{form_end(search_form)}}#}
+{#            </div>#}
+            <div class="bg-white">
+                <div class="">
+                    <div class="p-5 flex justify-between items-center">
+                        <span class="font-semibold text-gray-700">Les Transactions</span>
+                    </div>
+                    <div class="p-5 overflow-x-scroll">
+                        <table class="w-full">
+                            <thead class="bg-gray-100 text-gray-500">
+                            <tr class="uppercase text-xs">
+                                <th class="p-2">Montant</th>
+                                <th class="p-2">Type</th>
+                                <th class="p-2">Motif</th>
+                                <th class="p-2">Created At</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for transaction in transactions %}
+                                <tr class="text-sm {% if loop.index % 2 == 0 %} bg-gray-50 {% endif %} hover:bg-gray-100">
+                                    <td class="">
+                                        <div class="px-1 py-2 text-center">
+                                            <span>{{transaction.montant}} XAF</span>
+                                        </div>
+                                    </td>
+                                    <td class="">
+                                        <div class="px-1 py-2 text-center">
+                                            {% if transaction.type == 'deposit' %}
+                                                <span class="bg-orange-100 text-orange-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded">{{ transaction.type }}</span>
+                                            {% elseif transaction.type == 'withdrawal' %}
+                                                <span class="bg-red-100 text-red-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded">{{ transaction.type }}</span>
+                                            {% else %}
+                                                <span class="bg-green-100 text-green-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded">{{ transaction.type }}</span>
+                                            {% endif %}
+                                        </div>
+                                    </td>
+                                    <td class="">
+                                        <div class=" px-1 py-2 text-left">
+                                            {{ transaction.motif }}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="text-center">{{transaction.createdAt | date('d M Y')}}</div>
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="18">no records found</td>
+                                </tr>
+                            {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="navigation">
+                        {#                        {{ knp_pagination_render(rooms) }}#}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

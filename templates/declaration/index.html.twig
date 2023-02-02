@@ -39,6 +39,7 @@
                                 <th class="p-2">Document</th>
                                 <th class="p-2">Status</th>
                                 <th class="p-2">Recompense</th>
+                                <th class="p-2">Etat</th>
                                 <th class="p-2">Vues</th>
                                 <th class="p-2">Created At</th>
                                 <th class="p-2">Actions</th>
@@ -64,6 +65,15 @@
                                     <td class="">
                                         <div class=" px-1 py-2 text-center">
                                             {{declaration.reward}}
+                                        </div>
+                                    </td>
+                                    <td class="">
+                                        <div class="px-1 py-2 text-center">
+                                            {% if declaration.completed %}
+                                                <span class="bg-green-100 text-green-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded">terminé</span>
+                                            {% else %}
+                                                <span class="bg-red-100 text-red-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded">en cours</span>
+                                            {% endif %}
                                         </div>
                                     </td>
                                     <td class="">

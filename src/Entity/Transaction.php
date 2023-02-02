@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\TransactionRepository;
 use App\Trait\DateTrait;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: TransactionRepository::class)]
@@ -14,11 +15,18 @@ class Transaction
 
     const DEPOSIT = 'deposit';
     const WITHDRAWAL = 'withdrawal';
+    const TRANSFER = 'transfer';
 
     const TYPES = [
         self::DEPOSIT => 'dépot',
-        self::WITHDRAWAL => 'retrait'
+        self::WITHDRAWAL => 'retrait',
+        self::TRANSFER => 'transfert'
     ];
+
+    const TRANSFER_FROM_ARCHIVES = 'archive de';
+    const WITHDRAW_FROM_ACCOUNT = 'retrait de la cagnote';
+    const DEPOSIT_FOR_PAYMENT = 'payement pour';
+
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -33,6 +41,9 @@ class Transaction
 
     #[ORM\ManyToOne(inversedBy: 'transactions')]
     private ?Fund $fund = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $motif = null;
 
     public function getId(): ?int
     {
@@ -71,6 +82,18 @@ class Transaction
     public function setFund(?Fund $fund): self
     {
         $this->fund = $fund;
+
+        return $this;
+    }
+
+    public function getMotif(): ?string
+    {
+        return $this->motif;
+    }
+
+    public function setMotif(string $motif): self
+    {
+        $this->motif = $motif;
 
         return $this;
     }

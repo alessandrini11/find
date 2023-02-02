@@ -18,13 +18,14 @@ use Symfony\Component\Routing\Annotation\Route;
 class DeclarationController extends AbstractController
 {
     #[Route('/', name: 'app_declaration_index', methods: ['GET'])]
-    public function index(DeclarationRepository $declarationRepository, Request $request, PaginatorInterface $paginator): Response
+    public function index(UserRepository $userRepository,DeclarationRepository $declarationRepository, Request $request, PaginatorInterface $paginator): Response
     {
+        $user = $userRepository->find(2);
         $declaration = new DeclarationSearch();
         $form = $this->createForm(DeclarationSearchType::class, $declaration);
         $form->handleRequest($request);
         $declarations = $paginator->paginate(
-            $declarationRepository->searchDeclaration($declaration),
+            $declarationRepository->searchDeclaration($declaration, $user),
             1,
             10
         );
@@ -37,7 +38,7 @@ class DeclarationController extends AbstractController
     #[Route('/new', name: 'app_declaration_new', methods: ['GET', 'POST'])]
     public function new(Request $request, DeclarationRepository $declarationRepository, UserRepository $userRepository): Response
     {
-        $user = $userRepository->find(3);
+        $user = $userRepository->find(2);
 
         $declaration = new Declaration();
         $form = $this->createForm(DeclarationType::class, $declaration);
@@ -46,6 +47,7 @@ class DeclarationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $declaration->setUser($user);
+            $declaration->setCompleted(false);
             $declarationRepository->save($declaration, true);
 
             $this->addFlash('success', 'Déclaration ajouté avec succès');
@@ -69,7 +71,7 @@ class DeclarationController extends AbstractController
     #[Route('/{id}/edit', name: 'app_declaration_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Declaration $declaration, DeclarationRepository $declarationRepository, UserRepository $userRepository): Response
     {
-        $user = $userRepository->find(3);
+        $user = $userRepository->find(2);
         $form = $this->createForm(DeclarationType::class, $declaration);
         $form->handleRequest($request);
 

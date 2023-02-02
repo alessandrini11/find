@@ -30,7 +30,7 @@ class DeclarationCrudController extends AbstractCrudController
             NumberField::new('reward'),
             ChoiceField::new('status')
                 ->setChoices(array_flip(Declaration::STATUS)),
-            AssociationField::new('visitors'),
+            AssociationField::new('visitors')->hideOnForm(),
             DateTimeField::new('createdAt')->hideOnForm(),
             DateTimeField::new('updatedAt')->hideOnForm()
         ];
