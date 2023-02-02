@@ -1,0 +1,123 @@
+{% extends 'dashboard.html.twig' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block body %}
+    <main class="">
+        <div class="flex justify-center">
+            {% for message in app.flashes('success') %}
+                <div class="bg-green-200 text-green-600 ">
+                    <p class="py-3 px-6">{{ message }}</p>
+                </div>
+            {% endfor %}
+            {% for message in app.flashes('error') %}
+                <div class="bg-red-200 text-red-600 ">
+                    <p class="py-3 px-6">{{ message }}</p>
+                </div>
+            {% endfor %}
+        </div>
+        <section class="">
+            <div class="bg-gradient-to-b from-blue-300 to-blue-900 h-48"></div>
+        </section>
+        <section class="-mt-10">
+            <div class="w-11/12 mx-auto">
+                <div class="lg:flex space-y-5 lg:space-y-0 lg:space-x-5">
+                    <div class="flex-1 space-y-5">
+                        <div class="border bg-white rounded">
+                            <div class="py-5 flex justify-center">
+                                <div class="space-y-4">
+                                    <img src="./img/1.png" alt="" class="h-36 w-36 rounded-full object-cover mx-auto">
+                                    <div class="">
+                                        <p class="font-semibold uppercase text-center">{{user.firstname}} {{user.lastname}}</p>
+                                        <p class="text-gray-600 text-sm text-center">{{user.sex}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="border bg-white rounded">
+                            <div class="py-5 flex justify-center">
+                                <div class="">
+                                    <ul class="space-y-3">
+                                        <li><i title="buidlings" class="fa-solid fa-house-user"></i> : {{user.documents | length }}</li>
+                                        <li><i title="rooms" class="fa-solid fa-bed"></i> : {{user.declarations | length}}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex-[3]">
+                        <div class="bg-white rounded">
+                            <div class="">
+                                <ul class="flex">
+                                    <li id="personnal-detail-btn" class="p-5 border-b border-b-blue-500 hover:cursor-pointer">Detail Personnel</li>
+                                    <li id="change-password-btn" class="p-5 hover:cursor-pointer">Changer le mot de pass</li>
+                                </ul>
+                            </div>
+                            <div id="personnal-details" class="">
+                                {{form_start(change_user_info_form)}}
+                                <div class="space-y-5 p-5">
+                                    <div class="grid lg:grid-cols-2 gap-5">
+                                        <div class="space-y-2">
+                                            <label class="block" for="firstname">Nom</label>
+                                            {{form_row(change_user_info_form.firstname, {'attr':{'class':'focus:outline-none border rounded px-3 py-1 text-sm w-full'}})}}
+                                        </div>
+                                        <div class="space-y-2">
+                                            <label class="block" for="lastname">Prenom</label>
+                                            {{form_row(change_user_info_form.lastname, {'attr':{'class':'focus:outline-none border rounded px-3 py-1 text-sm w-full'}})}}
+                                        </div>
+                                    </div>
+                                    <div class="grid lg:grid-cols-2 gap-5">
+                                        <div class="space-y-2">
+                                            <label class="block" for="sex">Sexe</label>
+                                            {{form_row(change_user_info_form.sex, {'attr':{'class':'border rounded px-3 py-1 text-sm w-full bg-white'}})}}
+                                        </div>
+                                    </div>
+                                    <div class="grid lg:grid-cols-2 gap-5">
+                                        <div class="space-y-2">
+                                            <label class="block" for="phonenumber">Numéro</label>
+                                            {{form_row(change_user_info_form.telephone, {'attr':{'class':'focus:outline-none border rounded px-3 py-1 text-sm w-full'}})}}
+                                        </div>
+                                        <div class="space-y-2">
+                                            <label class="block" for="email">Email</label>
+                                            {{form_row(change_user_info_form.email, {'attr':{'class':'focus:outline-none border rounded px-3 py-1 text-sm w-full'}})}}
+                                        </div>
+                                    </div>
+                                    <div class="flex justify-end">
+                                        <button class="bg-blue-500 rounded text-white p-3 w-full lg:w-fit" type="submit">Valider</button>
+                                    </div>
+                                </div>
+                                {{form_end(change_user_info_form)}}
+                            </div>
+                            <div id="change-password" class="hidden">
+                                <div class="p-5">
+                                    {{form_start(change_password_form)}}
+                                    <div class="space-y-5">
+                                        <div class="grid lg:grid-cols-3 gap-5">
+                                            <div class="space-y-2">
+                                                <label class="block" for="currentpassword">Mot de Passe Actuel</label>
+                                                {{form_row(change_password_form.actualPassword, {'attr':{'class':'focus:outline-none border rounded px-3 py-1 text-sm w-full'}})}}
+                                            </div>
+                                            <div class="space-y-2">
+                                                <label class="block" for="newpassword">Nouveau Mot de Passe</label>
+                                                {{form_row(change_password_form.plainPassword.first, {'attr':{'class':'focus:outline-none border rounded px-3 py-1 text-sm w-full'}})}}
+                                            </div>
+                                            <div class="space-y-2">
+                                                <label class="block" for="confirmpassword">Confirmez mot de Passe</label>
+                                                {{form_row(change_password_form.plainPassword.second, {'attr':{'class':'focus:outline-none border rounded px-3 py-1 text-sm w-full'}})}}
+                                            </div>
+                                        </div>
+                                        <div class="flex justify-end">
+                                            <button class="bg-blue-500 rounded text-white p-3 w-full lg:w-fit" type="submit">Valider</button>
+                                        </div>
+                                    </div>
+                                    {{form_end(change_password_form)}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script src={{ asset('assets/js/profile.js') }}></script>
+{% endblock %}

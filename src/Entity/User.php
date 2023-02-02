@@ -68,6 +68,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     private $plainpassword = null;
 
+    private ?string $actualPassword = null;
+
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Document::class)]
     private Collection $documents;
 
@@ -85,6 +87,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Fund::class)]
     private Collection $fund;
+
 
     public function __construct()
     {
@@ -243,6 +246,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->plainpassword = $plainpassword;
 
         return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getActualPassword(): ?string
+    {
+        return $this->actualPassword;
+    }
+
+    /**
+     * @param string|null $actualPassword
+     */
+    public function setActualPassword(?string $actualPassword): void
+    {
+        $this->actualPassword = $actualPassword;
     }
 
     /**
