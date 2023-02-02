@@ -8,6 +8,7 @@ use App\Form\DocumentType;
 use App\Models\DocumentSearch;
 use App\Repository\DocumentRepository;
 use App\Repository\UserRepository;
+use App\Service\UploadService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -39,7 +40,12 @@ class DocumentController extends AbstractController
     }
 
     #[Route('/new', name: 'app_document_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, DocumentRepository $documentRepository, UserRepository $userRepository): Response
+    public function new(
+        Request $request,
+        DocumentRepository $documentRepository,
+        UserRepository $userRepository,
+        UploadService $uploadService
+    ): Response
     {
         $user = $userRepository->find(3);
         $document = new Document();
@@ -47,6 +53,9 @@ class DocumentController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $imageFile = $form->get('imageFile')->getData();
+            $fileName = $uploadService->uploadFile($imageFile, Document::DIRECTORY);
+            $document->setImage($fileName);
             $document->setUser($user);
             $documentRepository->save($document, true);
 

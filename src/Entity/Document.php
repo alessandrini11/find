@@ -15,6 +15,7 @@ class Document
 {
     use DateTrait;
 
+    const DIRECTORY = 'documents';
     const NIC = 'nic';
     const BIRTH_CERTIFICATE = 'birth certificate';
     const DEATH_CERTIFICATE = 'death certificate';
@@ -51,6 +52,10 @@ class Document
     #[ORM\OneToMany(mappedBy: 'document', targetEntity: Declaration::class, cascade: ["persist"])]
     private Collection $declarations;
 
+    #[ORM\Column(length: 255)]
+    private ?string $image = null;
+
+    private ?string $imageFile;
 
     public function __construct()
     {
@@ -160,5 +165,33 @@ class Document
     public function getLabel(): ?string
     {
         return $this->getType(). " - ". $this->getOwner();
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(string $image): self
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getImageFile(): ?string
+    {
+        return $this->imageFile;
+    }
+
+    /**
+     * @param string|null $imageFile
+     */
+    public function setImageFile(?string $imageFile): void
+    {
+        $this->imageFile = $imageFile;
     }
 }

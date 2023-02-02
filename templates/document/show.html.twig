@@ -26,7 +26,9 @@
                 <th>Image</th>
                 <td>
                     <div>
-                        <img src="https://unsplash.com/fr/photos/0J8thHZfosE" alt="">
+                        {% if document.image %}
+                            <img class="h-32" src="{{ asset('uploads/documents/' ~ document.image) }}" alt="">
+                        {% endif %}
                     </div>
                 </td>
             </tr>
