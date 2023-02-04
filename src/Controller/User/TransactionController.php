@@ -14,7 +14,7 @@ class TransactionController extends AbstractController
     #[Route('/', name: 'app_transaction_index', methods: ['GET'])]
     public function index(FundRepository $fundRepository, UserRepository $userRepository): Response
     {
-        $user = $userRepository->find(2);
+        $user = $userRepository->find(3);
         $fund = $fundRepository->findOneBy(["user" => $user]);
         $transactions = $fund->getTransactions();
         return $this->render('transaction/index.html.twig', [

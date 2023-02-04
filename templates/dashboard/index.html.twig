@@ -7,7 +7,7 @@
     <div class="w-11/12 mx-auto">
         <h2 class="text-2xl font-medium mb-5">Statistiques</h2>
         <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
-            {{ include('components/cards/icon_card.html.twig', {count: 300, card_name: 'Cagnote', card_color: 'green', card_icon: 'fa-money-bill'}) }}
+            {{ include('components/cards/icon_card.html.twig', {count: balance, card_name: 'Cagnote', card_color: 'green', card_icon: 'fa-money-bill'}) }}
             {{ include('components/cards/icon_card.html.twig', {count: transactions | length, card_name: 'Transactions', card_color: 'blue', card_icon: 'fa-money-bill-transfer'}) }}
         </div>
     </div>

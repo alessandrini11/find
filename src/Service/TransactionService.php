@@ -25,4 +25,31 @@ class TransactionService
 
         $this->transactionRepository->save($transaction, true);
     }
+
+    public function getBalance(Fund $fund): int
+    {
+       $transactionsTransfer = $this->transactionRepository->findBy(["fund" => $fund, "type" => Transaction::TRANSFER]);
+       $transactionsWithdraw = $this->transactionRepository->findBy(["fund" => $fund, "type" => Transaction::WITHDRAWAL]);
+
+       $totalTransferAmount = $this->getAmount($transactionsTransfer);
+       $totalWithdrawAmount = $this->getAmount($transactionsWithdraw);
+
+       return $totalTransferAmount - $totalWithdrawAmount;
+    }
+
+    /**
+     * @param Transaction[] $transactions
+     * @return int
+     */
+    private function getAmount(array $transactions): int
+    {
+        $amount = 0;
+        foreach ($transactions as $transaction)
+        {
+            $amount = $amount + $transaction->getMontant();
+        }
+        return $amount;
+    }
+
+
 }
