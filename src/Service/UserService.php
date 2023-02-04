@@ -7,6 +7,7 @@ use App\Entity\Declaration;
 use App\Entity\Document;
 use App\Entity\User;
 use App\Exceptions\ForbiddenException;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class UserService
 {
@@ -15,7 +16,7 @@ class UserService
 
     }
 
-    public function getIsOwner(User $user, $entity): void
+    public function getIsOwner(UserInterface $user, $entity): void
     {
         if($entity instanceof Archive){
             $this->isDifferent($entity->getOwner()->getId(), $user->getId());

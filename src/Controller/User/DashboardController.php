@@ -5,7 +5,6 @@ namespace App\Controller\User;
 use App\Form\ChangePasswordFormType;
 use App\Form\UserType;
 use App\Repository\FundRepository;
-use App\Repository\UserRepository;
 use App\Service\AuthService;
 use App\Service\TransactionService;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,12 +17,11 @@ class DashboardController extends AbstractController
 {
     #[Route('/', name: 'app_dashboard')]
     public function index(
-        UserRepository $userRepository,
         TransactionService $transactionService,
         FundRepository $fundRepository
     ): Response
     {
-        $user = $userRepository->find(3);
+        $user = $this->getUser();
         $documents = $user->getDocuments();
         $declarations = $user->getDeclarations();
         $archives = $user->getArchives();
@@ -44,9 +42,14 @@ class DashboardController extends AbstractController
 
 
     #[Route('/profile', name: 'app_dashboard_profile', methods: ['GET', 'POST'])]
-    public function profile(UserRepository $userRepository, Request $request, AuthService $authService): Response
+    public function profile(
+        Request $request,
+        AuthService $authService,
+        TransactionService $transactionService,
+        FundRepository $fundRepository
+    ): Response
     {
-        $user = $userRepository->find(2);
+        $user = $this->getUser();
         $updatePasswordForm = $this->createForm(ChangePasswordFormType::class, $user);
         $updatePasswordForm->handleRequest($request);
         $authService->updatePassword($updatePasswordForm, $user);
@@ -54,10 +57,17 @@ class DashboardController extends AbstractController
         $updateUserInfos = $this->createForm(UserType::class, $user);
         $updateUserInfos->handleRequest($request);
         $authService->updateUserInfos($updateUserInfos, $user);
+
+
+        $fund = $fundRepository->findOneBy(["user" => $user]);
+        $balance = $transactionService->getBalance($fund);
         return $this->render('dashboard/profile.html.twig', [
             'change_password_form' => $updatePasswordForm->createView(),
             'change_user_info_form' => $updateUserInfos->createView(),
-            'user' => $user
+            'user' => $user,
+            'balance' => $balance,
+            'page_name' => 'profile',
+            'page_route' => 'app_dashboard_profile'
         ]);
     }
 }

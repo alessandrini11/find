@@ -40,14 +40,14 @@
                     <li><a href="{{path('app_transaction_index')}}" class="">Transactions</a></li>
                     <li><span id="profile-icon" class="border-[#a4b0bf] rounded-full h-7 w-7 border flex items-center justify-center cursor-pointer"><i class="fa-solid fa-user text-sm"></i></span></li>
                 </ul>
-                <button id="openMenu" data-collapse-toggle="navbar-default" type="button" class="lg:hidden inline-flex items-center p-2 ml-3 text-sm text-blue-100 rounded-lg md:hidden focus:outline-none focus:ring-2 focus:ring-blue-100 " aria-controls="navbar-default" aria-expanded="false">
+                <button id="openMenu" type="button" class="lg:hidden inline-flex items-center p-2 ml-3 text-sm text-blue-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-100 ">
                     <span class="sr-only">Open main menu</span>
                     <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
                 </button>
             </div>
         </div>
     </nav>
-    <div id="mobileMenu" class="h-screen bg-black/10 fixed top-0 left-0 w-full text-blue-100 transform -translate-x-full transition-transform ease-in-out duration-100 z-0">
+    <div id="mobileMenu" class="z-10 h-screen bg-black/10 fixed top-0 left-0 w-full text-blue-100 transform -translate-x-full transition-transform ease-in-out duration-100 z-0">
         <div class="bg-[#212529] w-1/2 p-7">
             <ul class="flex justify-between items-center">
                 <li>
@@ -61,7 +61,7 @@
                     </span>
                 </li>
             </ul>
-            <div class="flex mt-7 h-screen z-10">
+            <div class="flex mt-7 h-screen ">
                 <ul class="space-y-5">
                     <li><a class="" href="{{path('app_document_index')}}">Documents</a></li>
                     <li><a href="{{path('app_declaration_index')}}" class="">Déclarations</a></li>
@@ -77,10 +77,9 @@
         <div class="w-11/12 mx-auto">
             <div class="py-3 text-sm">
                 <span class="uppercase font-semibold"><a href={{path('app_dashboard')}} >dashboard</a></span>
-{#                {% if page_name is defined and page_name != null %} <span class="text-gray-600 font-semibold"> > <a href= {{path({{ route_name }})}} >{{page_name}}</a> </span> {% endif %}#}
-{#                {% if building_name is defined and building_name != null %} <span class="text-gray-600 font-semibold"> > <a href="" class="">{{building_name}}</a> </span> {% endif %}#}
-{#                {% if room_id is defined and room_id != null %} <span class="text-gray-600 font-semibold"> > {{room_id}} </span> {% endif %}#}
-{#                {% if sub_page is defined and sub_page != null %} <span class="text-gray-600 font-semibold"> > {{sub_page}} </span> {% endif %}#}
+                {% if page_name is defined and page_name != null %} <span class="text-gray-600 font-semibold"> > <a href= {{path( page_route )}} >{{page_name}}</a> </span> {% endif %}
+                {% if sub_page is defined and sub_page != null %} <span class="text-gray-600 font-semibold"> > <a href={{ path(sub_route)}} class="">{{sub_page}}</a> </span> {% endif %}
+                {% if entity_id is defined and entity_id != null %} <span class="text-gray-600 font-semibold"> > {{entity_id}} </span> {% endif %}
             </div>
         </div>
     </div>

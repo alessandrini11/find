@@ -14,8 +14,6 @@ class TransactionType extends AbstractType
         $builder
             ->add('type')
             ->add('montant')
-            ->add('createdAt')
-            ->add('updatedAt')
             ->add('fund')
         ;
     }

@@ -3,7 +3,6 @@
 namespace App\Controller\User;
 
 use App\Entity\Archive;
-use App\Entity\Declaration;
 use App\Entity\Transaction;
 use App\Form\ArchiveType;
 use App\Repository\ArchiveRepository;
@@ -24,18 +23,20 @@ class ArchiveController extends AbstractController
     #[Route('/', name: 'app_archive_index', methods: ['GET'])]
     public function index(ArchiveRepository $archiveRepository, UserRepository $userRepository): Response
     {
-        $user = $userRepository->find(4);
+        $user = $this->getUser();
         $archives = $archiveRepository->findRelated($user);
         return $this->render('archive/index.html.twig', [
             'archives' => $archives,
             'user' => $user,
+            'page_name' => 'archives',
+            'page_route' => 'app_archive_index'
         ]);
     }
 
     #[Route('/new', name: 'app_archive_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, ArchiveRepository $archiveRepository, UserRepository $userRepository): Response
+    public function new(Request $request, ArchiveRepository $archiveRepository ): Response
     {
-        $user = $userRepository->find(2);
+        $user = $this->getUser();
         $archive = new Archive();
         $form = $this->createForm(ArchiveType::class, $archive);
         $form->handleRequest($request);
@@ -53,6 +54,10 @@ class ArchiveController extends AbstractController
         return $this->renderForm('archive/new.html.twig', [
             'archive' => $archive,
             'form' => $form,
+            'page_name' => 'archives',
+            'page_route' => 'app_archive_index',
+            'sub_page' => 'nouveau',
+            'sub_route' => 'app_archive_new'
         ]);
     }
 
@@ -70,12 +75,11 @@ class ArchiveController extends AbstractController
         Archive $archive,
         ArchiveRepository $archiveRepository,
         UserService $userService,
-        UserRepository $userRepository,
         ArchiveService $archiveService
     ): Response
     {
         $archiveService->getValidationStatus($archive);
-        $user = $userRepository->find(2);
+        $user = $this->getUser();
         $userService->getIsOwner($user, $archive);
         $form = $this->createForm(ArchiveType::class, $archive);
         $form->handleRequest($request);
@@ -92,6 +96,9 @@ class ArchiveController extends AbstractController
         return $this->renderForm('archive/edit.html.twig', [
             'archive' => $archive,
             'form' => $form,
+            'page_name' => 'archives',
+            'page_route' => 'app_archive_index',
+            'entity_id' => $archive->getId()
         ]);
     }
 
@@ -101,12 +108,11 @@ class ArchiveController extends AbstractController
         Archive $archive,
         ArchiveRepository $archiveRepository,
         ArchiveService $archiveService,
-        UserRepository $userRepository,
         UserService $userService
     ): Response
     {
         $archiveService->getValidationStatus($archive);
-        $user = $userRepository->find(3);
+        $user = $this->getUser();
         $userService->getIsOwner($user, $archive);
         if ($this->isCsrfTokenValid('delete'.$archive->getId(), $request->request->get('_token'))) {
             $archiveRepository->remove($archive, true);

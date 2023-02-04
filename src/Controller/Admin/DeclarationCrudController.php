@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Declaration;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
@@ -30,6 +31,7 @@ class DeclarationCrudController extends AbstractCrudController
             NumberField::new('reward'),
             ChoiceField::new('status')
                 ->setChoices(array_flip(Declaration::STATUS)),
+            BooleanField::new('completed'),
             AssociationField::new('visitors')->hideOnForm(),
             DateTimeField::new('createdAt')->hideOnForm(),
             DateTimeField::new('updatedAt')->hideOnForm()

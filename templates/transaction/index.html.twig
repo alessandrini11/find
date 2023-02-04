@@ -34,7 +34,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            {% for transaction in transactions %}
+                            {% for transaction in transactions | reverse %}
                                 <tr class="text-sm {% if loop.index % 2 == 0 %} bg-gray-50 {% endif %} hover:bg-gray-100">
                                     <td class="">
                                         <div class="px-1 py-2 text-center">

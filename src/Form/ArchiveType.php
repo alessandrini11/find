@@ -10,9 +10,20 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Security;
 
 class ArchiveType extends AbstractType
 {
+    private Security $security;
+
+    /**
+     * @param Security $security
+     */
+    public function __construct(Security $security)
+    {
+        $this->security = $security;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -27,7 +38,7 @@ class ArchiveType extends AbstractType
                     return $qb
                         ->leftJoin('d.user', 'u')
                         ->andWhere($qb->expr()->eq('u.id', ':userId'))
-                        ->setParameter('userId', 2)
+                        ->setParameter('userId', $this->security->getUser()->getId())
                         ;
                 },
                 'attr' => [
@@ -42,7 +53,7 @@ class ArchiveType extends AbstractType
 
                     return $qb
                         ->andWhere($qb->expr()->neq('u.id', ':userId'))
-                        ->setParameter('userId', 2)
+                        ->setParameter('userId', $this->security->getUser()->getId())
                         ;
                 },
                 'label' => false,

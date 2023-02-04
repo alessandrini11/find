@@ -97,8 +97,6 @@
                                             {% else %}
                                                 {% if archive.actorValidation %}
                                                     <span class="bg-green-100 text-green-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded">validé</span>
-                                                {% else %}
-                                                    <span class="bg-orange-100 text-orange-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded">en attente</span>
                                                 {% endif %}
                                             {% endif %}
                                         </div>
@@ -109,8 +107,10 @@
                                     <td>
                                         <div class="flex justify-around px-2 text-gray-600">
                                             {% if user and archive.owner.id == user.id  %}
-                                                <a title="modifier" href="{{ path('app_archive_edit', {'id': archive.id}) }}" class="transition-all ease-in hover:scale-150"><i class="fa-solid fa-pen"></i></a>
-                                                {{ include('archive/_delete_form.html.twig') }}
+                                                {% if not archive.actorValidation and not archive.ownerValidation %}
+                                                    <a title="modifier" href="{{ path('app_archive_edit', {'id': archive.id}) }}" class="transition-all ease-in hover:scale-150"><i class="fa-solid fa-pen"></i></a>
+                                                    {{ include('archive/_delete_form.html.twig') }}
+                                                {% endif %}
                                             {% endif %}
                                         </div>
                                     </td>

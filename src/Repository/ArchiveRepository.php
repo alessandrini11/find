@@ -45,6 +45,7 @@ class ArchiveRepository extends ServiceEntityRepository
     {
         $qb = $this->createQueryBuilder('a');
         return $qb->where($qb->expr()->eq('a.owner', ':userId'))
+            ->orderBy('a.createdAt', 'DESC')
             ->orWhere($qb->expr()->eq('a.actor', ':userId'))
             ->setParameter('userId', $user->getId())
             ->getQuery()

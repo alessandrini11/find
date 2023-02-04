@@ -13,9 +13,20 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Security;
 
 class DeclarationType extends AbstractType
 {
+    private Security $security;
+
+    /**
+     * @param Security $security
+     */
+    public function __construct(Security $security)
+    {
+        $this->security = $security;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -45,7 +56,7 @@ class DeclarationType extends AbstractType
                     return $qb
                         ->leftJoin('d.user', 'u')
                         ->andWhere($qb->expr()->eq('u.id', ':userId'))
-                        ->setParameter('userId', 2)
+                        ->setParameter('userId', $this->security->getUser()->getId())
                         ;
                 },
                 'choice_label' => 'label'
