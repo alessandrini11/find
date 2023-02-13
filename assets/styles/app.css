@@ -1,3 +1,52 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    :root {
+        --primarty: #5A72EA;
+        --secondary: #ced5f9;
+        --screen-width: 100vw;
+    }
+    .container {
+        @apply w-11/12 lg:w-8/12 mx-auto;
+    }
+
+    .bg-primary{
+        background-color: var(--primarty);
+    }
+
+    .text-primary {
+        color: var(--primarty);
+    }
+    .text-primary-light{
+        color: var(--secondary)
+    }
+
+    #first-triangle {
+        width: 0;
+        height: 0;
+        border-top: 180px solid transparent;
+        border-right: 1928px solid var(--secondary);
+        border-bottom: 0px solid transparent;
+    }
+
+    #parterners {
+        animation: slide 10s infinite linear;
+    }
+
+    @keyframes slide {
+        from {
+            transform: translate(-100%, 0)
+        }
+        to {
+            transform: translate(100%, 0)
+        }
+    }
+
+    @media only screen and (min-width: 100vw) {
+        #first-triangle{
+            border-right: calc(100vw) solid var(--secondary);
+        }
+    }
+}
