@@ -26,9 +26,9 @@
     #first-triangle {
         width: 0;
         height: 0;
-        border-top: 180px solid transparent;
+        border-top: 80px solid transparent;
         border-right: 1928px solid var(--secondary);
-        border-bottom: 0px solid transparent;
+        border-bottom: 0 solid transparent;
     }
 
     #parterners {
