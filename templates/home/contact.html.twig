@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <section class="bg-gradient-to-r to-[#5A72EA] from-[#8468B1]">
+        <div class="container">
+            <div class="space-y-10 py-12">
+                <div class="text-white space-y-10">
+                    <h1 class="text-2xl lg:text-6xl text-center font-bold ">Contact</h1>
+                </div>
+            </div>
+        </div>
+        <div class="hidden md:flex justify-end">
+            <div id="first-triangle" class="">
+
+            </div>
+        </div>
+    </section>
+    <section class="py-12">
+        <div class="container">
+            <div class="lg:flex space-y-5 lg:space-y-0 justify-between items-center">
+                <div class="border p-8">
+                    <img class="mx-auto" src="{{ asset('assets/image/mail.png') }}" alt="">
+                    <ul>
+                        <li class="text-center"><a href="" class="">contact@find.com</a></li>
+                    </ul>
+                </div>
+                <div class="border p-8">
+                    <img class="mx-auto" src="{{ asset('assets/image/map.png') }}" alt="">
+                    <p class="text-center" >Douala, Cameroun</p>
+                </div>
+                <div class="border p-8">
+                    <img class="mx-auto" src="{{ asset('assets/image/phone.png') }}" alt="">
+                    <ul>
+                        <li class="text-center">+237 695 785 963</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block title %}
+    contact
+{% endblock %}
+

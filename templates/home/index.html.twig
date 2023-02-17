@@ -3,41 +3,6 @@
 {% block title %}Accueil{% endblock %}
 
 {% block body %}
-    <nav class="bg-gradient-to-r to-[#5A72EA] from-[#8468B1]">
-        <div class="w-11/12 lg:w-8/12 mx-auto py-5">
-            <div class="flex justify-between items-center">
-                <a href="">
-                    <img class="h-10 lg:h-20" src="{{ asset('assets/image/favicon.png') }}" alt="">
-                </a>
-                <ul class="hidden text-white lg:flex space-x-10">
-                    <li><a href="" class="">Accueil</a></li>
-                    <li><a href="" class="">A Propos</a></li>
-                    <li><a href="" class="">Mention légale</a></li>
-                    <li><a href="" class="">Contact</a></li>
-                </ul>
-                <button id="open-menu" type="button" class="inline-flex lg:hidden items-center p-2 ml-3 text-sm text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-200 " >
-                    <span class="sr-only">Open main menu</span>
-                    <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
-                </button>
-            </div>
-        </div>
-    </nav>
-    <div id="mobile-menu"" class="p-5 mx-auto py-5 bg-gradient-to-r to-[#5A72EA] from-[#8468B1] fixed w-1/2 h-screen top-0 transform -translate-x-full ease-in-out duration-200">
-        <div class="flex justify-between items-center">
-            <a href="">
-                <img class="h-10" src="{{ asset('assets/image/favicon.png') }}" alt="">
-            </a>
-            <button id="close-menu" type="button" class="inline-flex lg:hidden items-center p-2 ml-3 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-200 " >
-                <i class="text-lg fa-solid fa-xmark"></i>
-            </button>
-        </div>
-        <ul class="my-10 text-white space-y-10">
-            <li><a href="" class="">Accueil</a></li>
-            <li><a href="" class="">A Propos</a></li>
-            <li><a href="" class="">Mention légale</a></li>
-            <li><a href="" class="">Contact</a></li>
-        </ul>
-    </div>
     <main>
         <section class="bg-gradient-to-r to-[#5A72EA] from-[#8468B1]">
             <div class="container">
@@ -49,7 +14,7 @@
                     <div class="space-y-10">
                         <form action="">
                             <div class="relative h-14">
-                                <input type="text" class="h-full bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-3 p-2.5" placeholder="nom du proprietaire, numéro de la pièce">
+                                <input type="text" class="z-0 h-full bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-3 p-2.5" placeholder="nom du proprietaire, numéro de la pièce">
                                 <button class="absolute inset-y-0 right-0 flex items-center pr-3">
                                     <i class="fa-sharp fa-solid fa-magnifying-glass w-full h-5 text-gray-500 dark:text-gray-400"></i>
                                 </button>
@@ -93,37 +58,4 @@
             </div>
         </section>
     </main>
-    <footer class="">
-        <div class="container py-5">
-            <div class="lg:flex justify-between space-y-5 lg:sapce-y-0">
-                <div class="">
-                    <h3 class="uppercase text-primary text-3xl font-semibold"><a href="" class="">find</a></h3>
-                    <p class="lg:w-1/2 text-[#5A5A5A]">The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested</p>
-                </div>
-                <div class="">
-                    <h3 class="text-primary text-xl">Navigation</h3>
-                    <ul class="text-[#5A5A5A] space-y-3 mt-2">
-                        <li><a href="" class="">Accueil</a></li>
-                        <li><a href="" class="">A Propos</a></li>
-                        <li><a href="" class="">Mention Légale</a></li>
-                        <li><a href="" class="">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="">
-                    <h3 class="text-primary text-xl">Contact</h3>
-                    <ul class="text-[#5A5A5A] space-y-3 mt-2">
-                        <li>contact@find.cm</li>
-                        <li>+237 698 530 785</li>
-                        <li>Douala, Cameroun</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="bg-primary">
-            <div class="container py-5">
-                <p class="text-center text-white">All rights reserved &cir; 2023 </p>
-            </div>
-        </div>
-    </footer>
-    <script src="{{ asset('assets/js/home.js') }}"></script>
 {% endblock %}
