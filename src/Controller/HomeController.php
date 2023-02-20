@@ -2,12 +2,22 @@
 
 namespace App\Controller;
 
+use App\Entity\Declaration;
+use App\Entity\Transaction;
+use App\Exceptions\Api\UnauthorizedException;
+use App\Exceptions\Api\NotFoundException;
+use App\Repository\DeclarationRepository;
+use App\Repository\FundRepository;
+use App\Repository\TransactionRepository;
+use App\Repository\UserRepository;
+use App\Service\TransactionService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
+use App\DTO\Response as ApiResponse;
 
 class HomeController extends AbstractController
 {
@@ -45,5 +55,66 @@ class HomeController extends AbstractController
     public function contact(): Response
     {
         return $this->render('home/contact.html.twig');
+    }
+
+    #[Route('/recherche', name: 'app_search', methods: ['GET', 'POST'])]
+    public function search(): Response
+    {
+        return $this->render('home/search.html.twig');
+    }
+
+    #[Route('/declaration/{id}', name: 'app_search', methods: 'GET')]
+    public function showDeclaration(
+        Declaration $declaration,
+        UserRepository $userRepository,
+        TransactionRepository $transactionRepository,
+        FundRepository $fundRepository
+    ): Response
+    {
+        $user = $this->getUser();
+        $isPayed = false;
+        if($user){
+            $fund = $fundRepository->findOneBy(["user" => $user]);
+            $transaction = $transactionRepository->findOneBy([
+                "fund" => $fund,
+                "motif" => Transaction::DEPOSIT_FOR_PAYMENT.' '.$declaration->getLabel()
+            ]);
+            if($transaction){
+                $isPayed = true;
+            }
+        }
+
+        return $this->render('home/show.html.twig', [
+            "declaration" => $declaration,
+            "user" => $user,
+            "isPayed" => $isPayed
+        ]);
+    }
+
+    #[Route('/add-payment/{id}', name: 'app_is_auth', methods: 'POST')]
+    public function addPayment(
+        int $id,
+        DeclarationRepository $declarationRepository,
+        FundRepository $fundRepository,
+        TransactionService $transactionService
+    ): JsonResponse
+    {
+        $user = $this->getUser();
+        if(!$user){
+            throw new UnauthorizedException();
+        }
+        $declaration = $declarationRepository->find($id);
+        if(!$declaration){
+            throw new NotFoundException();
+        }
+        $fund = $fundRepository->findOneBy(["user" => $user]);
+        $transactionService->create(
+            $fund,
+            500,
+            Transaction::DEPOSIT,
+            Transaction::DEPOSIT_FOR_PAYMENT .' '. $declaration->getLabel()
+        );
+        $response = new ApiResponse();
+        return $this->json($response);
     }
 }

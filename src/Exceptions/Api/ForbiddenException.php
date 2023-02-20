@@ -9,6 +9,6 @@ class ForbiddenException extends ApiException
 
     public function __construct($message = 'Forbidden')
     {
-        parent::__construct(Response::HTTP_BAD_REQUEST, $message);
+        parent::__construct(Response::HTTP_FORBIDDEN, $message);
     }
 }

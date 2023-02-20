@@ -9,7 +9,7 @@
         --screen-width: 100vw;
     }
     .container {
-        @apply w-11/12 lg:w-8/12 mx-auto;
+        @apply w-11/12 lg:w-10/12 mx-auto;
     }
 
     .bg-primary{
