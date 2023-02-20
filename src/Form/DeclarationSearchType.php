@@ -15,7 +15,11 @@ class DeclarationSearchType extends AbstractType
         $builder
             ->add('query', TextType::class, [
                 'label' => false,
-                'required' => false
+                'required' => false,
+                'attr' => [
+                    'class' => 'h-full bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-3 p-2.5',
+                    'placeholder' => 'nom du proprietaire, numéro de la pièce'
+                ]
             ])
         ;
     }

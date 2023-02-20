@@ -78,7 +78,7 @@
             <div class="py-3 text-sm">
                 <span class="uppercase font-semibold"><a href={{path('app_dashboard')}} >dashboard</a></span>
                 {% if page_name is defined and page_name != null %} <span class="text-gray-600 font-semibold"> > <a href= {{path( page_route )}} >{{page_name}}</a> </span> {% endif %}
-                {% if sub_page is defined and sub_page != null %} <span class="text-gray-600 font-semibold"> > <a href={{ path(sub_route)}} class="">{{sub_page}}</a> </span> {% endif %}
+                {% if sub_page is defined and sub_page != null %} <span class="text-gray-600 font-semibold"> > <a href={{ path(sub_route, {id: 1})}} class="">{{sub_page}}</a> </span> {% endif %}
                 {% if entity_id is defined and entity_id != null %} <span class="text-gray-600 font-semibold"> > {{entity_id}} </span> {% endif %}
             </div>
         </div>

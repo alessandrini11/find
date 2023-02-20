@@ -1,4 +1,4 @@
-const imageUploader = document.getElementById("document_imageFile")
+const imageUploader = document.getElementById("declaration_imageFile")
 const imagePreviewBox = document.getElementById("img-preview-box")
 const imagePreview = document.getElementById("preview-img")
 const clearImage = document.getElementById("delete-img")

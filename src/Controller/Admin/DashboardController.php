@@ -2,23 +2,22 @@
 
 namespace App\Controller\Admin;
 
-use App\Controller\Admin\UserCrudController;
 use App\Entity\Archive;
 use App\Entity\Declaration;
 use App\Entity\Document;
 use App\Entity\Fund;
+use App\Entity\Municipality;
+use App\Entity\Town;
 use App\Entity\Transaction;
 use App\Entity\User;
 use App\Entity\Visitor;
 use App\Repository\ArchiveRepository;
 use App\Repository\DeclarationRepository;
 use App\Repository\DocumentRepository;
-use App\Repository\FundRepository;
 use App\Repository\UserRepository;
 use App\Repository\VisitorRepository;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Assets;
-use Faker\Factory;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
@@ -26,7 +25,6 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
-use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 
 class DashboardController extends AbstractDashboardController
 {
@@ -107,6 +105,10 @@ class DashboardController extends AbstractDashboardController
             MenuItem::linkToCrud('Documents', 'fa-solid fa-book', Document::class),
             MenuItem::linkToCrud('Déclarations', 'fa-solid fa-newspaper', Declaration::class),
             MenuItem::linkToCrud('Archives', 'fa-solid fa-box-archive', Archive::class)
+        ]);
+        yield MenuItem::subMenu('Localisation', 'fa fa-map-pin')->setSubItems([
+            MenuItem::linkToCrud('Municipalités', 'fa fa-map-pin', Municipality::class),
+            MenuItem::linkToCrud('Villes', 'fa fa-map-pin', Town::class),
         ]);
         yield MenuItem::linkToCrud('Utilisateurs', 'fa fa-user', User::class);
         yield MenuItem::linkToCrud('Visiteurs', 'fas fa-users', Visitor::class);

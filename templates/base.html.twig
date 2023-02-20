@@ -20,16 +20,18 @@
     </head>
     <body>
     <nav class="bg-gradient-to-r to-[#5A72EA] from-[#8468B1]">
-        <div class="w-11/12 lg:w-8/12 mx-auto py-5">
+        <div class="container mx-auto py-5">
             <div class="flex justify-between items-center">
                 <a href="">
                     <img class="h-10 lg:h-20" src="{{ asset('assets/image/favicon.png') }}" alt="">
                 </a>
                 <ul class="hidden text-white lg:flex space-x-10">
                     <li><a href="{{ path('app_home') }}" class="">Accueil</a></li>
+                    <li><a href="{{ path('app_search') }}" class="">Recherche</a></li>
                     <li><a href="{{ path('app_about') }}" class="">A Propos</a></li>
                     <li><a href="{{ path('app_mentions') }}" class="">Mention légale</a></li>
                     <li><a href="{{ path('app_contact') }}" class="">Contact</a></li>
+                    <li><a href="{{ path('app_login') }}" class="bg-white text-primary py-2 px-4 rounded-lg cursor-pointer">Déclarez un Document</a></li>
                 </ul>
                 <button id="open-menu" type="button" class="inline-flex lg:hidden items-center p-2 ml-3 text-sm text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-200 " >
                     <span class="sr-only">Open main menu</span>
@@ -49,9 +51,11 @@
         </div>
         <ul class="my-10 text-white space-y-10">
             <li><a href="{{ path('app_home') }}" class="">Accueil</a></li>
+            <li><a href="{{ path('app_search') }}" class="">Recherche</a></li>
             <li><a href="{{ path('app_about') }}" class="">A Propos</a></li>
             <li><a href="{{ path('app_mentions') }}" class="">Mention légale</a></li>
             <li><a href="{{ path('app_contact') }}" class="">Contact</a></li>
+            <li><a href="{{ path('app_login') }}" class="bg-white text-primary py-2 px-4 rounded-lg cursor-pointer">Déclarez un Document</a></li>
         </ul>
     </div>
 
@@ -69,6 +73,7 @@
                         <h3 class="text-primary text-xl">Navigation</h3>
                         <ul class="text-[#5A5A5A] space-y-3 mt-2">
                             <li><a href="{{ path('app_home') }}" class="">Accueil</a></li>
+                            <li><a href="{{ path('app_search') }}" class="">Recherche</a></li>
                             <li><a href="{{ path('app_about') }}" class="">A Propos</a></li>
                             <li><a href="{{ path('app_mentions') }}" class="">Mention légale</a></li>
                             <li><a href="{{ path('app_contact') }}" class="">Contact</a></li>

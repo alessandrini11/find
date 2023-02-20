@@ -51,6 +51,9 @@ class Declaration
     #[ORM\Column(nullable: true)]
     private ?bool $completed = null;
 
+    #[ORM\ManyToOne(inversedBy: 'declarations')]
+    private ?Municipality $municipality = null;
+
     public function __construct()
     {
         $this->archives = new ArrayCollection();
@@ -196,6 +199,18 @@ class Declaration
     public function setCompleted(?bool $completed): self
     {
         $this->completed = $completed;
+
+        return $this;
+    }
+
+    public function getMunicipality(): ?Municipality
+    {
+        return $this->municipality;
+    }
+
+    public function setMunicipality(?Municipality $municipality): self
+    {
+        $this->municipality = $municipality;
 
         return $this;
     }

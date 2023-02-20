@@ -27,10 +27,10 @@
                 <div class="">
                     <div class="p-5 flex justify-between items-center">
                         <span class="font-semibold text-gray-700">Les Documments</span>
-                        <a class="p-2 bg-green-100 text-green-500 rounded flex items-center cursor-pointer space-x-2 hover:scale-110 transition-all ease-in-out " href={{ path('app_document_new') }} >
-                            <i class="fa-solid fa-plus"></i>
-                            <span class="text-sm font-thin">Ajouter</span>
-                        </a>
+{#                        <a class="p-2 bg-green-100 text-green-500 rounded flex items-center cursor-pointer space-x-2 hover:scale-110 transition-all ease-in-out " href={{ path('app_document_new') }} >#}
+{#                            <i class="fa-solid fa-plus"></i>#}
+{#                            <span class="text-sm font-thin">Ajouter</span>#}
+{#                        </a>#}
                     </div>
                     <div class="p-5 overflow-x-scroll">
                         <table class="w-full">
@@ -44,7 +44,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            {% for document in documents %}
+                            {% for document in documents | reverse %}
                                 <tr class="text-sm {% if loop.index % 2 == 0 %} bg-gray-50 {% endif %} hover:bg-gray-100">
                                     <td class="">
                                         <div class="px-1 py-2 text-left">
@@ -65,7 +65,7 @@
                                     <td>
                                         <div class="flex justify-around px-2 text-gray-600">
                                             <a title="detail" href="{{path('app_document_show', {id: document.id})}}" class="transition-all ease-in hover:scale-150"><i class="fa-solid fa-eye"></i></a>
-                                            <a title="modifier" href="{{path('app_document_edit', {id: document.id})}}" class="transition-all ease-in hover:scale-150"><i class="fa-solid fa-pen"></i></a>
+{#                                            <a title="modifier" href="{{path('app_document_edit', {id: document.id})}}" class="transition-all ease-in hover:scale-150"><i class="fa-solid fa-pen"></i></a>#}
                                             {{ include('document/_delete_form.html.twig') }}
                                         </div>
                                     </td>

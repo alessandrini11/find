@@ -55,7 +55,7 @@ class RegistrationFormType extends AbstractType
                 'trim' => true,
                 'attr' => [
                     'class' => 'rounded-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5',
-                    'placeholder' => 'Prenom'
+                    'placeholder' => 'Telephone'
                 ]
             ])
             ->add('plainPassword', RepeatedType::class, [

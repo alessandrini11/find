@@ -11,6 +11,14 @@
                 <td>{{ declaration.id }}</td>
             </tr>
             <tr class="flex space-x-2">
+                <th></th>
+                <td>
+                    {% if declaration.document.image %}
+                        <img src="{{ asset('uploads/documents/' ~ declaration.document.image) }}" alt="document" class="lg:h-48 h-auto">
+                    {% endif %}
+                </td>
+            </tr>
+            <tr class="flex space-x-2">
                 <th>Document</th>
                 <td>{{ declaration.document.type }} - {{ declaration.document.owner }}</td>
             </tr>

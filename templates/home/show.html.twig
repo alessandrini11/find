@@ -6,12 +6,13 @@
             <div class="grid lg:grid-cols-6">
                 <div class="lg:col-start-2 lg:col-span-4">
                     <div class="rounded overflow-hidden shadow-lg">
-                        <img class="w-full" src="https://v1.tailwindcss.com/img/card-top.jpg" alt="Sunset in the mountains">
+                        <img class="w-full" src="{{ asset('uploads/documents/' ~ declaration.document.image ) }}" alt="{{ declaration.document.type }}">
                         <div class="px-6 py-4">
-                            <div class="font-semibold text-xl mb-2">Schuame Alexandre Lionel</div>
+                            <div class="font-semibold text-xl mb-2">{{ declaration.document.owner }}</div>
+                            <div class="mb-2">Numéro: <span>{{ declaration.document.idNumber }}</span></div>
                             <ul class="text-gray-700 text-base">
                                 <li><span class="inline-block bg-red-200 rounded-full px-3 py-1 text-sm font-semibold text-red-700 mr-2 mb-2">Perdu</span></li>
-                                <li><i class="fa fa-map-pin"></i> <span class="text-sm inline-block ml-1">Pk17, Douala</span> </li>
+                                <li><i class="fa fa-map-pin"></i> <span class="text-sm inline-block ml-1">{{ declaration.municipality }}, {{ declaration.municipality.town }}</span> </li>
                             </ul>
                             <div class="mt-2 space-y-2">
                                 <p>Contactez l'utilisateur</p>
@@ -19,7 +20,7 @@
                                     <li><i class="fa fa-user"></i>
                                         <span class="text-sm">
                                             {% if isPayed %}
-                                                +237 695 874 213
+                                                {{ declaration.user.telephone }}
                                                 {% else %}
                                                 +237 6## ### ###
                                             {% endif %}

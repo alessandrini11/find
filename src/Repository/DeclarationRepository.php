@@ -44,26 +44,27 @@ class DeclarationRepository extends ServiceEntityRepository
         }
     }
 
-
-    public function searchDeclaration(DeclarationSearch $declarationSearch, UserInterface $user = null): Query
+    public function searchDeclaration(DeclarationSearch $declarationSearch, UserInterface $user = null)
     {
         $query = $this->getDocuments($declarationSearch, $user);
-        return $query->getQuery();
-
+        return $query->getQuery()->getResult();
     }
 
     private function getDocuments(DeclarationSearch $declarationSearch, UserInterface $user = null): QueryBuilder
     {
-        $qb = $this->getOrderBycreatedAtDesc() ;
+        $qb = $this->getOrderBycreatedAtDesc();
         if($declarationSearch->getQuery()){
             $qb->leftJoin('d.document', 'doc')
                 ->andWhere('doc.owner LIKE  :query')
+                ->orWhere('doc.idNumber LIKE :query')
                 ->setParameter('query', "%{$declarationSearch->getQuery()}%")
                 ->orderBy('doc.owner', 'ASC')
             ;
         }
         if($user){
             return $this->getCurrentUser($qb, $user);
+        } else {
+            $qb->andWhere('d.completed = false');
         }
         return $qb;
     }

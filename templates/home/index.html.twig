@@ -12,14 +12,14 @@
                         <p class="text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis autem vel eum iure reprehenderit qui in ea voluptate</p>
                     </div>
                     <div class="space-y-10">
-                        <form action="">
+                        {{ form_start(form) }}
                             <div class="relative h-14">
-                                <input type="text" class="z-0 h-full bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-3 p-2.5" placeholder="nom du proprietaire, numéro de la pièce">
+                                {{ form_widget(form.query) }}
                                 <button class="absolute inset-y-0 right-0 flex items-center pr-3">
                                     <i class="fa-sharp fa-solid fa-magnifying-glass w-full h-5 text-gray-500 dark:text-gray-400"></i>
                                 </button>
                             </div>
-                        </form>
+                        {{ form_end(form) }}
                         <div class="flex justify-center text-white">
                             <a href="" class="uppercase px-2 py-2 border border-white rounded-md">déclarer un document</a>
                         </div>

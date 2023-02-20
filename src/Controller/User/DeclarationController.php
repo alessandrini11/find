@@ -3,11 +3,13 @@
 namespace App\Controller\User;
 
 use App\Entity\Declaration;
+use App\Entity\Document;
 use App\Form\DeclarationSearchType;
 use App\Form\DeclarationType;
 use App\Models\DeclarationSearch;
 use App\Repository\DeclarationRepository;
 use App\Repository\UserRepository;
+use App\Service\DocumentService;
 use App\Service\UserService;
 use App\Service\VisitorService;
 use Knp\Component\Pager\PaginatorInterface;
@@ -40,16 +42,18 @@ class DeclarationController extends AbstractController
     }
 
     #[Route('/new', name: 'app_declaration_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, DeclarationRepository $declarationRepository, UserRepository $userRepository): Response
+    public function new(Request $request, DeclarationRepository $declarationRepository, DocumentService $documentService): Response
     {
         $user = $this->getUser();
 
+        $document = new Document();
         $declaration = new Declaration();
         $form = $this->createForm(DeclarationType::class, $declaration);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
+            $document = $documentService->create($form, $user);
+            $declaration->setDocument($document);
             $declaration->setUser($user);
             $declaration->setCompleted(false);
             $declarationRepository->save($declaration, true);
@@ -88,7 +92,8 @@ class DeclarationController extends AbstractController
         Request $request,
         Declaration $declaration,
         DeclarationRepository $declarationRepository,
-        UserService $userService
+        UserService $userService,
+        DocumentService $documentService
     ): Response
     {
         $user = $this->getUser();
@@ -97,6 +102,7 @@ class DeclarationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $documentService->edit($form, $declaration->getDocument());
             $declaration->setUser($user);
             $declarationRepository->save($declaration, true);
 

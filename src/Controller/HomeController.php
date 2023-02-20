@@ -6,13 +6,17 @@ use App\Entity\Declaration;
 use App\Entity\Transaction;
 use App\Exceptions\Api\UnauthorizedException;
 use App\Exceptions\Api\NotFoundException;
+use App\Form\DeclarationSearchType;
+use App\Models\DeclarationSearch;
 use App\Repository\DeclarationRepository;
 use App\Repository\FundRepository;
+use App\Repository\MunicipalityRepository;
 use App\Repository\TransactionRepository;
 use App\Repository\UserRepository;
 use App\Service\TransactionService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
@@ -21,8 +25,8 @@ use App\DTO\Response as ApiResponse;
 
 class HomeController extends AbstractController
 {
-    #[Route('/', name: 'app_home')]
-    public function index(MailerInterface $mailer): Response
+    #[Route('/', name: 'app_home', methods: ['GET', 'POST'])]
+    public function index(MailerInterface $mailer, Request $request, DeclarationRepository $declarationRepository): Response
     {
         $email = (new Email())
             ->from('contact@schuamealexandre.com')
@@ -36,7 +40,20 @@ class HomeController extends AbstractController
             ->html('<p>See Twig integration for better HTML integration!</p>');
 //        $mailer->send($email);
 
-        return $this->render('home/index.html.twig');
+        $declarationSearch = new DeclarationSearch();
+        $form = $this->createForm(DeclarationSearchType::class, $declarationSearch);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $declarations = $declarationRepository->searchDeclaration($declarationSearch);
+           return $this->render('home/search.html.twig', [
+                "declarations" => $declarations,
+                "form" => $form->createView()
+            ]);
+        }
+        return $this->render('home/index.html.twig', [
+            "form" => $form->createView()
+        ]);
     }
 
     #[Route('/a-propos', name: 'app_about', methods: 'GET')]
@@ -58,12 +75,27 @@ class HomeController extends AbstractController
     }
 
     #[Route('/recherche', name: 'app_search', methods: ['GET', 'POST'])]
-    public function search(): Response
+    public function search(DeclarationRepository $declarationRepository, Request $request): Response
     {
-        return $this->render('home/search.html.twig');
+        $declarations = $declarationRepository->findBy(["completed" => false]);
+        $declarationSearch = new DeclarationSearch();
+        $form = $this->createForm(DeclarationSearchType::class, $declarationSearch);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $declarations = $declarationRepository->searchDeclaration($declarationSearch);
+            return $this->render('home/search.html.twig', [
+                "declarations" => $declarations,
+                "form" => $form->createView()
+            ]);
+        }
+        return $this->render('home/search.html.twig', [
+            "declarations" => $declarations,
+            "form" => $form->createView()
+        ]);
     }
 
-    #[Route('/declaration/{id}', name: 'app_search', methods: 'GET')]
+    #[Route('/declaration/{id}', name: 'app_show_declaration', methods: 'GET')]
     public function showDeclaration(
         Declaration $declaration,
         UserRepository $userRepository,

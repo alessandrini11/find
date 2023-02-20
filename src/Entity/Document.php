@@ -8,8 +8,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: DocumentRepository::class)]
+#[UniqueEntity(fields: ['idNumber'], message: 'Ce document existe déjà')]
 #[ORM\HasLifecycleCallbacks]
 class Document
 {
