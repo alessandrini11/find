@@ -28,18 +28,6 @@ class HomeController extends AbstractController
     #[Route('/', name: 'app_home', methods: ['GET', 'POST'])]
     public function index(MailerInterface $mailer, Request $request, DeclarationRepository $declarationRepository): Response
     {
-        $email = (new Email())
-            ->from('contact@schuamealexandre.com')
-            ->to('alexandreschuame@gmail.com')
-            //->cc('cc@example.com')
-            //->bcc('bcc@example.com')
-            //->replyTo('fabien@example.com')
-            //->priority(Email::PRIORITY_HIGH)
-            ->subject('Time for Symfony Mailer!')
-            ->text('Sending emails is fun again!')
-            ->html('<p>See Twig integration for better HTML integration!</p>');
-//        $mailer->send($email);
-
         $declarationSearch = new DeclarationSearch();
         $form = $this->createForm(DeclarationSearchType::class, $declarationSearch);
         $form->handleRequest($request);

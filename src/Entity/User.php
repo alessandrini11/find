@@ -86,7 +86,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'actor', targetEntity: Archive::class)]
     private Collection $actors;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Fund::class)]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Fund::class, cascade: ['persist', 'remove'])]
     private Collection $fund;
 
     #[ORM\Column(length: 255, nullable: true)]

@@ -3,6 +3,13 @@
 {% block title %}Dashboard{% endblock %}
 
 {% block body %}
+<div class="bg-white">
+    <div class="w-11/12 mx-auto">
+        <div class="py-3 text-sm">
+            <span class="font-thin">Bienvenu {{ app.user.firstname }} {{ app.user.lastname }}</span>
+        </div>
+    </div>
+</div>
 <section class="mt-10">
     <div class="w-11/12 mx-auto">
         <h2 class="text-2xl font-medium mb-5">Statistiques</h2>

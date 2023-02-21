@@ -16,9 +16,7 @@
                 </div>
             {% endfor %}
         </div>
-        <section class="">
-            <div class="bg-gradient-to-b from-blue-300 to-blue-900 h-48"></div>
-        </section>
+        {{ include('components/header.html.twig', {title: 'Mettre à jour les informations'}) }}
         <section class="-mt-10">
             <div class="w-11/12 mx-auto">
                 <div class="lg:flex space-y-5 lg:space-y-0 lg:space-x-5">
@@ -71,18 +69,18 @@
                                             {{form_row(change_user_info_form.sex, {'attr':{'class':'border rounded px-3 py-1 text-sm w-full bg-white'}})}}
                                         </div>
                                     </div>
-                                    <div class="grid lg:grid-cols-2 gap-5">
-                                        <div class="space-y-2">
-                                            <label class="block" for="phonenumber">Numéro</label>
-                                            {{form_row(change_user_info_form.telephone, {'attr':{'class':'focus:outline-none border rounded px-3 py-1 text-sm w-full'}})}}
-                                        </div>
-                                        <div class="space-y-2">
-                                            <label class="block" for="email">Email</label>
-                                            {{form_row(change_user_info_form.email, {'attr':{'class':'focus:outline-none border rounded px-3 py-1 text-sm w-full'}})}}
-                                        </div>
-                                    </div>
+{#                                    <div class="grid lg:grid-cols-2 gap-5">#}
+{#                                        <div class="space-y-2">#}
+{#                                            <label class="block" for="phonenumber">Numéro</label>#}
+{#                                            {{form_row(change_user_info_form.telephone, {'attr':{'class':'focus:outline-none border rounded px-3 py-1 text-sm w-full'}})}}#}
+{#                                        </div>#}
+{#                                        <div class="space-y-2">#}
+{#                                            <label class="block" for="email">Email</label>#}
+{#                                            {{form_row(change_user_info_form.email, {'attr':{'class':'focus:outline-none border rounded px-3 py-1 text-sm w-full'}})}}#}
+{#                                        </div>#}
+{#                                    </div>#}
                                     <div class="flex justify-end">
-                                        <button class="bg-blue-500 rounded text-white p-3 w-full lg:w-fit" type="submit">Valider</button>
+                                        <button class="bg-primary rounded text-white p-3 w-full lg:w-fit" type="submit">Valider</button>
                                     </div>
                                 </div>
                                 {{form_end(change_user_info_form)}}
@@ -106,7 +104,7 @@
                                             </div>
                                         </div>
                                         <div class="flex justify-end">
-                                            <button class="bg-blue-500 rounded text-white p-3 w-full lg:w-fit" type="submit">Valider</button>
+                                            <button class="bg-primary rounded text-white p-3 w-full lg:w-fit" type="submit">Valider</button>
                                         </div>
                                     </div>
                                     {{form_end(change_password_form)}}

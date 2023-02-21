@@ -19,9 +19,16 @@
     </section>
     <section>
         <div class="container">
-            {% for flash_error in app.flashes('verify_email_error') %}
-                <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
-            {% endfor %}
+            <div class="mt-5">
+                {% for flash_error in app.flashes('verify_email_error') %}
+                    <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+                {% endfor %}
+                {% for message in app.flashes('success') %}
+                    <div class="bg-green-200 text-green-600 ">
+                        <p class="py-3 px-6">{{ message }}</p>
+                    </div>
+                {% endfor %}
+            </div>
             <div class="flex justify-center items-center py-10">
                 <div class="space-y-2 w-full lg:w-2/3">
                     <div class="flex">
@@ -42,6 +49,9 @@
                     {{ form_rest(registrationForm) }}
                     <button type="submit" class="focus:outline-none text-white bg-[#5A72EA] hover:bg-[#2d4ce7] focus:ring-4 focus:ring-[#7f8ed8] font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 w-full">Inscription</button>
                     {{ form_end(registrationForm) }}
+                    <div class="pt-5 text-center">
+                        <a href="{{ path('app_login') }}" class="text-primary underline">Déjà inscrit? connectez-vous</a>
+                    </div>
                 </div>
             </div>
         </div>
