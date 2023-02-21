@@ -3,9 +3,7 @@
 {% block title %}New Archive{% endblock %}
 
 {% block body %}
-    <section class="">
-        <div class="bg-gradient-to-b from-violet-300 to-violet-900 h-48"></div>
-    </section>
+    {{ include('components/header.html.twig', {title: 'archivez une déclaration'}) }}
     <section class="-mt-40 lg:-mt-10 pb-10">
         <div class="w-11/12 mx-auto">
             {{ include('archive/_form.html.twig') }}

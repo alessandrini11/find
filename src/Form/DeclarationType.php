@@ -64,7 +64,7 @@ class DeclarationType extends AbstractType
                 'label' => false,
                 'required' => true ,
                 'attr' => [
-                    'class' => 'doc_type'
+                    'class' => 'townselect select2'
                 ],
             ])
             ->add('municipality', EntityType::class, [
@@ -72,7 +72,7 @@ class DeclarationType extends AbstractType
                 'label' => false,
                 'required' => true ,
                 'attr' => [
-                    'class' => 'doc_type'
+                    'class' => 'municipalityselect select2'
                 ],
             ])
             ->add('imageFile', FileType::class, [
@@ -103,7 +103,7 @@ class DeclarationType extends AbstractType
                 'label' => false,
                 'mapped' => false,
                 'attr' => [
-                    'class' => 'doc_type border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 '
+                    'class' => 'border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 '
                 ],
             ])
 //            ->add('document', EntityType::class, [

@@ -14,10 +14,13 @@ clearImage.addEventListener("click", (e) => {
     window.location.href = ""
 })
 
-$('.doc_type').select2();
-
-const selects = document.getElementsByClassName('select2')
-for (let i = 0; i < selects.length; i++){
-    selects[i].style.width = "100%"
-    s=selects[i].style.zIndex = -1
-}
+// $('.townselect').select2();
+// $('.municipalityselect').select2()
+//
+// console.log("ok")
+//
+// const selects = document.getElementsByClassName('select2')
+// for (let i = 0; i < selects.length; i++){
+//     selects[i].style.width = "100%"
+//     selects[i].style.zIndex = -1
+// }

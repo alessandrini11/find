@@ -3,9 +3,7 @@
 {% block title %}New Declaration{% endblock %}
 
 {% block body %}
-    <section class="">
-        <div class="bg-gradient-to-b from-violet-300 to-violet-900 h-48"></div>
-    </section>
+    {{ include('components/header.html.twig', {title: 'déclarez un document'}) }}
     <section class="-mt-40 lg:-mt-10 pb-10">
         <div class="w-11/12 mx-auto">
             {{ include('declaration/_form.html.twig') }}
@@ -15,11 +13,16 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src={{ asset('assets/js/create-doc.js') }} ></script>
-{#    <script >#}
-{#        $('.doc_type').select2();#}
-{#        const selects = document.getElementsByClassName('select2')#}
-{#        for (let i = 0; i < selects.length; i++){#}
-{#            selects[i].style.width = "100%"#}
-{#        }#}
-{#    </script>#}
+    <script >
+        $('.townselect').select2();
+        $('.municipalityselect').select2()
+
+        console.log("ok")
+
+        // const selectLists = document.getElementsByClassName('select2')
+        // for (let i = 0; i < selects.length; i++){
+        //     selectLists[i].style.width = "100%"
+        //     selectLists[i].style.zIndex = -1
+        // }
+    </script>
 {% endblock %}

@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Retrouvez ou enregistrer vos documents personnels perdus: CNI, Passport, Diplômes... sur notre plateforme">
         <link rel="icon" href="{{ asset('assets/image/favicon.png') }}">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.2/flowbite.min.css">
@@ -31,7 +32,7 @@
                     <li><a href="{{ path('app_about') }}" class="">A Propos</a></li>
                     <li><a href="{{ path('app_mentions') }}" class="">Mention légale</a></li>
                     <li><a href="{{ path('app_contact') }}" class="">Contact</a></li>
-                    <li><a href="{{ path('app_login') }}" class="bg-white text-primary py-2 px-4 rounded-lg cursor-pointer">Déclarez un Document</a></li>
+                    <li><a href="{{ path('app_declaration_new') }}" class="bg-white text-primary py-2 px-4 rounded-lg cursor-pointer">Déclarez un Document</a></li>
                 </ul>
                 <button id="open-menu" type="button" class="inline-flex lg:hidden items-center p-2 ml-3 text-sm text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-200 " >
                     <span class="sr-only">Open main menu</span>
@@ -55,7 +56,7 @@
             <li><a href="{{ path('app_about') }}" class="">A Propos</a></li>
             <li><a href="{{ path('app_mentions') }}" class="">Mention légale</a></li>
             <li><a href="{{ path('app_contact') }}" class="">Contact</a></li>
-            <li><a href="{{ path('app_login') }}" class="bg-white text-primary py-2 px-4 rounded-lg cursor-pointer">Déclarez un Document</a></li>
+            <li><a href="{{ path('app_declaration_new') }}" class="bg-white text-primary py-2 px-4 rounded-lg cursor-pointer">Déclarez un Document</a></li>
         </ul>
     </div>
 
