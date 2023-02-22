@@ -22,16 +22,25 @@ class UserType extends AbstractType
 //            ])
             ->add('firstname', TextType::class, [
                 'required' => true,
-                'label' => false
+                'label' => false,
+                'attr' => [
+                    'class' => 'border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ',
+                ]
             ])
             ->add('lastname', TextType::class, [
                 'required' => true,
-                'label' => false
+                'label' => false,
+                'attr' => [
+                    'class' => 'border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ',
+                ]
             ])
             ->add('sex', ChoiceType::class, [
                 'choices' => array_flip(User::sexs),
                 'required' => true,
-                'label' => false
+                'label' => false,
+                'attr' => [
+                    'class' => 'border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ',
+                ]
             ])
 //            ->add('telephone', TelType::class, [
 //                'required' => true,

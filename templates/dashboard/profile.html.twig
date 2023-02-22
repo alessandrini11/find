@@ -56,17 +56,17 @@
                                     <div class="grid lg:grid-cols-2 gap-5">
                                         <div class="space-y-2">
                                             <label class="block" for="firstname">Nom</label>
-                                            {{form_row(change_user_info_form.firstname, {'attr':{'class':'focus:outline-none border rounded px-3 py-1 text-sm w-full'}})}}
+                                            {{form_row(change_user_info_form.firstname)}}
                                         </div>
                                         <div class="space-y-2">
                                             <label class="block" for="lastname">Prenom</label>
-                                            {{form_row(change_user_info_form.lastname, {'attr':{'class':'focus:outline-none border rounded px-3 py-1 text-sm w-full'}})}}
+                                            {{form_row(change_user_info_form.lastname)}}
                                         </div>
                                     </div>
                                     <div class="grid lg:grid-cols-2 gap-5">
                                         <div class="space-y-2">
                                             <label class="block" for="sex">Sexe</label>
-                                            {{form_row(change_user_info_form.sex, {'attr':{'class':'border rounded px-3 py-1 text-sm w-full bg-white'}})}}
+                                            {{form_row(change_user_info_form.sex)}}
                                         </div>
                                     </div>
 {#                                    <div class="grid lg:grid-cols-2 gap-5">#}
@@ -92,15 +92,15 @@
                                         <div class="grid lg:grid-cols-3 gap-5">
                                             <div class="space-y-2">
                                                 <label class="block" for="currentpassword">Mot de Passe Actuel</label>
-                                                {{form_row(change_password_form.actualPassword, {'attr':{'class':'focus:outline-none border rounded px-3 py-1 text-sm w-full'}})}}
+                                                {{form_row(change_password_form.actualPassword)}}
                                             </div>
                                             <div class="space-y-2">
                                                 <label class="block" for="newpassword">Nouveau Mot de Passe</label>
-                                                {{form_row(change_password_form.plainPassword.first, {'attr':{'class':'focus:outline-none border rounded px-3 py-1 text-sm w-full'}})}}
+                                                {{form_row(change_password_form.plainPassword.first)}}
                                             </div>
                                             <div class="space-y-2">
                                                 <label class="block" for="confirmpassword">Confirmez mot de Passe</label>
-                                                {{form_row(change_password_form.plainPassword.second, {'attr':{'class':'focus:outline-none border rounded px-3 py-1 text-sm w-full'}})}}
+                                                {{form_row(change_password_form.plainPassword.second)}}
                                             </div>
                                         </div>
                                         <div class="flex justify-end">

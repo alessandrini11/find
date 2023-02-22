@@ -17,7 +17,11 @@ class ChangePasswordFormType extends AbstractType
         $builder
             ->add('actualPassword', PasswordType::class, [
                 'required' => true,
-                'label' => false
+                'label' => false,
+                'attr' => [
+                    'class' => 'border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ',
+                    'placeholder' => 'Mot de passe actuel'
+                ]
             ])
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
@@ -27,9 +31,13 @@ class ChangePasswordFormType extends AbstractType
                     ],
                 ],
                 'first_options' => [
+                    'attr' => [
+                        'class' => 'border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ',
+                        'placeholder' => 'Nouveau mot de passe'
+                    ],
                     'constraints' => [
                         new NotBlank([
-                            'message' => 'Please enter a password',
+                            'message' => 'Entrez un mot de passe',
                         ]),
                         new Length([
                             'min' => 6,
@@ -42,6 +50,10 @@ class ChangePasswordFormType extends AbstractType
                 ],
                 'second_options' => [
                     'label' => false,
+                    'attr' => [
+                        'class' => 'border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ',
+                        'placeholder' => 'Confirmez le mot de passe'
+                    ]
                 ],
                 'invalid_message' => 'Les mots de passe doivent correspondre',
                 // Instead of being set onto the object directly,

@@ -27,12 +27,25 @@
                     <img class="h-10 lg:h-20" src="{{ asset('assets/image/favicon.png') }}" alt="">
                 </a>
                 <ul class="hidden text-white lg:flex space-x-10">
+                    {% if app.user %}
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <li><a href="{{ path('admin') }}" class="">Dashboard</a></li>
+                        {% else %}
+                            <li><a href="{{ path('app_dashboard') }}" class="">Dashboard</a></li>
+                        {% endif %}
+                    {% endif %}
                     <li><a href="{{ path('app_home') }}" class="">Accueil</a></li>
                     <li><a href="{{ path('app_search') }}" class="">Recherche</a></li>
                     <li><a href="{{ path('app_about') }}" class="">A Propos</a></li>
                     <li><a href="{{ path('app_mentions') }}" class="">Mention légale</a></li>
                     <li><a href="{{ path('app_contact') }}" class="">Contact</a></li>
-                    <li><a href="{{ path('app_login') }}" class="bg-white text-primary py-2 px-4 rounded-lg cursor-pointer">Connexion</a></li>
+                    <li>
+                        {% if app.user %}
+                            <a href="{{ path('app_logout') }}" class="bg-white text-primary py-2 px-4 rounded-lg cursor-pointer">Deconnexion</a>
+                            {% else %}
+                            <a href="{{ path('app_login') }}" class="bg-white text-primary py-2 px-4 rounded-lg cursor-pointer">Connexion</a>
+                        {% endif %}
+                    </li>
                 </ul>
                 <button id="open-menu" type="button" class="inline-flex lg:hidden items-center p-2 ml-3 text-sm text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-200 " >
                     <span class="sr-only">Open main menu</span>
@@ -51,12 +64,23 @@
             </button>
         </div>
         <ul class="my-10 text-white space-y-10">
+            {% if app.user %}
+                {% if is_granted('ROLE_ADMIN') %}
+                    <li><a href="{{ path('admin') }}" class="">Dashboard</a></li>
+                {% else %}
+                    <li><a href="{{ path('app_dashboard') }}" class="">Dashboard</a></li>
+                {% endif %}
+            {% endif %}
             <li><a href="{{ path('app_home') }}" class="">Accueil</a></li>
             <li><a href="{{ path('app_search') }}" class="">Recherche</a></li>
             <li><a href="{{ path('app_about') }}" class="">A Propos</a></li>
             <li><a href="{{ path('app_mentions') }}" class="">Mention légale</a></li>
             <li><a href="{{ path('app_contact') }}" class="">Contact</a></li>
-            <li><a href="{{ path('app_login') }}" class="bg-white text-primary py-2 px-4 rounded-lg cursor-pointer">Connexion</a></li>
+            {% if app.user %}
+                <a href="{{ path('app_logout') }}" class="bg-white text-primary py-2 px-4 rounded-lg cursor-pointer">Deconnexion</a>
+            {% else %}
+                <a href="{{ path('app_login') }}" class="bg-white text-primary py-2 px-4 rounded-lg cursor-pointer">Connexion</a>
+            {% endif %}
         </ul>
     </div>
 

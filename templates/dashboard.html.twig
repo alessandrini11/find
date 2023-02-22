@@ -32,8 +32,9 @@
                 </div>
             </div>
             <div class="flex justify-between items-center py-5">
-                <a href="" class="text-2xl text-white font-semibold">Find</a>
+                <a href="{{ path('app_home') }}" class="text-2xl text-white font-semibold">Find</a>
                 <ul class="hidden md:space-x-5 lg:flex items-center justify-between mt-7 md:mt-0 ">
+                    <li><a class="" href="{{path('app_dashboard')}}">Dashboard</a></li>
                     <li><a class="" href="{{path('app_document_index')}}">Documents</a></li>
                     <li><a href="{{path('app_declaration_index')}}" class="">Déclarations</a></li>
                     <li><a href="{{path('app_archive_index')}}" class="">Archives</a></li>
@@ -51,7 +52,7 @@
         <div class="bg-[#212529] w-1/2 p-7">
             <ul class="flex justify-between items-center">
                 <li>
-                    <a href="" class="text-2xl text-white font-semibold">KamerBooking</a>
+                    <a href="{{ path('app_home') }}" class="text-2xl text-white font-semibold">Find</a>
                 </li>
                 <li>
                     <span id="closeMenu" class="cursor-pointer">
@@ -63,6 +64,7 @@
             </ul>
             <div class="flex mt-7 h-screen ">
                 <ul class="space-y-5">
+                    <li><a class="" href="{{path('app_dashboard')}}">Dashboard</a></li>
                     <li><a class="" href="{{path('app_document_index')}}">Documents</a></li>
                     <li><a href="{{path('app_declaration_index')}}" class="">Déclarations</a></li>
                     <li><a href="{{path('app_archive_index')}}" class="">Archives</a></li>
