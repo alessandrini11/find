@@ -71,22 +71,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     private ?string $actualPassword = null;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Document::class)]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Document::class, cascade: ["remove"])]
     private Collection $documents;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Payement::class)]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Payement::class, cascade: ["remove"])]
     private Collection $payements;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Declaration::class)]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Declaration::class, cascade: ["remove"])]
     private Collection $declarations;
 
-    #[ORM\OneToMany(mappedBy: 'owner', targetEntity: Archive::class)]
+    #[ORM\OneToMany(mappedBy: 'owner', targetEntity: Archive::class, cascade: ["remove"])]
     private Collection $archives;
 
-    #[ORM\OneToMany(mappedBy: 'actor', targetEntity: Archive::class)]
+    #[ORM\OneToMany(mappedBy: 'actor', targetEntity: Archive::class, cascade: ["remove"])]
     private Collection $actors;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Fund::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Fund::class, cascade: ["remove", "persist"] )]
+    #[ORM\JoinColumn()]
     private Collection $fund;
 
     #[ORM\Column(length: 255, nullable: true)]

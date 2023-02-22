@@ -21,7 +21,7 @@ class Fund
     #[ORM\ManyToOne(inversedBy: 'fund')]
     private ?User $user = null;
 
-    #[ORM\OneToMany(mappedBy: 'fund', targetEntity: Transaction::class)]
+    #[ORM\OneToMany(mappedBy: 'fund', targetEntity: Transaction::class, cascade: ["remove"])]
     private Collection $transactions;
 
     public function __construct()

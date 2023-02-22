@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Fund;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
@@ -53,9 +54,13 @@ class UserCrudController extends AbstractCrudController
     public function persistEntity(EntityManagerInterface $entityManager, $entityInstance): void
     {
         if (!$entityInstance instanceof User) return;
+        $fund = new Fund();
+        $fund->setUser($entityInstance);
         $hashPassword = $this->passwordEncoder->hashPassword($entityInstance, $entityInstance->getPlainPassword());
         $entityInstance->setPassword($hashPassword);
-        parent::persistEntity($entityManager, $entityInstance);   
+        $entityManager->persist($fund);
+        $entityManager->persist($entityInstance);
+        $entityManager->flush();
     }
 
     public function updateEntity(EntityManagerInterface $entityManager, $entityInstance): void

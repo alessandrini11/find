@@ -7,13 +7,15 @@ use App\Entity\Declaration;
 use App\Entity\Document;
 use App\Entity\User;
 use App\Exceptions\ForbiddenException;
+use App\Repository\UserRepository;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class UserService
+class UserService extends BaseService
 {
-    public function __construct()
+    private UserRepository $userRepository;
+    public function __construct(UserRepository $userRepository)
     {
-
+        $this->userRepository = $userRepository;
     }
 
     public function getIsOwner(UserInterface $user, $entity): void
@@ -29,10 +31,24 @@ class UserService
         }
     }
 
+    public function deleteUnverifiedUsers(): array
+    {
+        $users = $this->userRepository->deleteUserByDateAndStatus();
+        $count = 0;
+
+        foreach ($users as $user)
+        {
+            $this->userRepository->remove($user, true);
+            $count = $count + 1;
+        }
+
+        return ["removed" => $count, "total" => count($users)];
+    }
     private function isDifferent(int $entityUserId, int $userId): void
     {
         if($entityUserId !== $userId){
             throw new ForbiddenException();
         }
     }
+
 }

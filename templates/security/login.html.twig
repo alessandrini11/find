@@ -22,6 +22,11 @@
             <div class="flex justify-center items-center py-10">
                 <div class="space-y-2 w-full lg:w-2/3">
                     <div class="my-5">
+                        {% for message in app.flashes('success') %}
+                            <div class="bg-green-200 text-green-600 ">
+                                <p class="py-3 px-6">{{ message }}</p>
+                            </div>
+                        {% endfor %}
                         {% if error %}
                             <div class="bg-red-100 text-red-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
                         {% endif %}
