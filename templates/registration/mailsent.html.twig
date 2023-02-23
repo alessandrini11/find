@@ -1,0 +1,15 @@
+ {% extends 'base.html.twig' %}
+
+ {% block title %}Confirmation mail sent{% endblock %}
+
+ {% block body %}
+     <section class="h-screen">
+         <div class="mt-10">
+             {% for message in app.flashes('success') %}
+                 <div class="bg-green-200 text-green-600 ">
+                     <p class="py-3 px-6 text-center">{{ message }}</p>
+                 </div>
+             {% endfor %}
+         </div>
+     </section>
+ {% endblock %}

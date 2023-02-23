@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .container{
+            padding: 40px;
+            background: #f3f3f3;
+        }
+
+        .header{
+            background: #8468b1;
+            padding: 20px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .header img{
+            width: 70px;
+        }
+
+        .content{
+            padding: 16px 0;
+        }
+
+        .content h2{
+            font-size: 28px;
+            color: rgb(71, 70, 70);
+            text-align: center;
+        }
+
+        p {
+            padding: 10px 0;
+        }
+
+        .content a{
+            display: block;
+            text-decoration: none;
+            text-align: center;
+            color: white;
+            background: #8468b1;
+            padding: 10px 0;
+            border-radius: 3px;
+        }
+    </style>
+    <title>email</title>
+</head>
+<body>
+<div class="container">
+    <div class="">
+        <div class="header">
+            <img src="{{ asset('assets/image/favicon.png') }}" alt="">
+        </div>
+        <div class="content">
+            <h2>Email de confirmation</h2>
+            <p style="color: black">Veuillez cliquer sur le lien pour confirmer votre email</p>
+            <a href="{{ signedUrl|raw }}" class="">Confirmez mon email</a>
+            <p style="color: black" class="">Ce lien expirera dans {{ expiresAtMessageKey|trans(expiresAtMessageData, 'VerifyEmailBundle') }}</p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

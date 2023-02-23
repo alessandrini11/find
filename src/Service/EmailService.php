@@ -24,7 +24,7 @@ class EmailService
                 ->from(new Address('contact@schuamealexandre.com', 'No reply'))
                 ->to($user->getEmail())
                 ->subject('Confirmez votre adresse email')
-                ->htmlTemplate('registration/confirmation_email.html.twig')
+                ->htmlTemplate('registration/confirmation.html.twig')
         );
     }
 

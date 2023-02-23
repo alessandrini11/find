@@ -50,6 +50,16 @@ class HomeController extends AbstractController
         return $this->render('home/about.html.twig');
     }
 
+    #[Route(
+        '/register/confirmation-mail-sent-this-is-a-generated-page-not-to-visit',
+        name: 'app_confirmation_mail',
+        methods: ['POST', 'GET'])
+    ]
+    public function confirmationMail(): Response
+    {
+       return $this->render('registration/mailsent.html.twig');
+    }
+
     #[Route('/mentions-legales', name: 'app_mentions', methods: 'GET')]
     public function mentions(): Response
     {
@@ -82,6 +92,8 @@ class HomeController extends AbstractController
             "form" => $form->createView()
         ]);
     }
+
+
 
     #[Route('/declaration/{id}', name: 'app_show_declaration', methods: 'GET')]
     public function showDeclaration(

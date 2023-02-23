@@ -23,11 +23,6 @@
                 {% for flash_error in app.flashes('verify_email_error') %}
                     <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
                 {% endfor %}
-                {% for message in app.flashes('success') %}
-                    <div class="bg-green-200 text-green-600 ">
-                        <p class="py-3 px-6">{{ message }}</p>
-                    </div>
-                {% endfor %}
             </div>
             <div class="flex justify-center items-center py-10">
                 <div class="space-y-2 w-full lg:w-2/3">
