@@ -10,24 +10,28 @@ use App\Form\DeclarationSearchType;
 use App\Models\DeclarationSearch;
 use App\Repository\DeclarationRepository;
 use App\Repository\FundRepository;
-use App\Repository\MunicipalityRepository;
 use App\Repository\TransactionRepository;
-use App\Repository\UserRepository;
 use App\Service\TransactionService;
+use App\Service\VisitorService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
 use App\DTO\Response as ApiResponse;
 
 class HomeController extends AbstractController
 {
     #[Route('/', name: 'app_home', methods: ['GET', 'POST'])]
-    public function index(MailerInterface $mailer, Request $request, DeclarationRepository $declarationRepository): Response
+    public function index(
+        VisitorService $visitorService,
+        Request $request,
+        DeclarationRepository $declarationRepository
+    ): Response
     {
+        $ip = $request->getClientIp();
+        $visitorService->getByIp($ip);
         $declarationSearch = new DeclarationSearch();
         $form = $this->createForm(DeclarationSearchType::class, $declarationSearch);
         $form->handleRequest($request);
@@ -45,8 +49,10 @@ class HomeController extends AbstractController
     }
 
     #[Route('/a-propos', name: 'app_about', methods: 'GET')]
-    public function about(): Response
+    public function about(Request $request, VisitorService $visitorService): Response
     {
+        $ip = $request->getClientIp();
+        $visitorService->getByIp($ip);
         return $this->render('home/about.html.twig');
     }
 
@@ -61,21 +67,27 @@ class HomeController extends AbstractController
     }
 
     #[Route('/mentions-legales', name: 'app_mentions', methods: 'GET')]
-    public function mentions(): Response
+    public function mentions(Request $request, VisitorService $visitorService): Response
     {
+        $ip = $request->getClientIp();
+        $visitorService->getByIp($ip);
         return $this->render('home/mentions.html.twig');
     }
 
     #[Route('/contact', name: 'app_contact', methods: 'GET')]
-    public function contact(): Response
+    public function contact(Request $request, VisitorService $visitorService): Response
     {
+        $ip = $request->getClientIp();
+        $visitorService->getByIp($ip);
         return $this->render('home/contact.html.twig');
     }
 
     #[Route('/recherche', name: 'app_search', methods: ['GET', 'POST'])]
-    public function search(DeclarationRepository $declarationRepository, Request $request): Response
+    public function search(DeclarationRepository $declarationRepository, Request $request, VisitorService $visitorService): Response
     {
-        $declarations = $declarationRepository->findBy(["completed" => true]);
+        $ip = $request->getClientIp();
+        $visitorService->getByIp($ip);
+        $declarations = $declarationRepository->findBy(["completed" => false]);
         $declarationSearch = new DeclarationSearch();
         $form = $this->createForm(DeclarationSearchType::class, $declarationSearch);
         $form->handleRequest($request);
@@ -99,11 +111,18 @@ class HomeController extends AbstractController
     public function showDeclaration(
         Declaration $declaration,
         TransactionRepository $transactionRepository,
-        FundRepository $fundRepository
+        FundRepository $fundRepository,
+        VisitorService $visitorService,
+        Request $request
     ): Response
     {
+        $ip = $request->getClientIp();
+        $visitorService->isDeclarationInVisitor($ip, $declaration);
         $user = $this->getUser();
         $isPayed = false;
+        if($declaration->isCompleted()){
+            throw new BadRequestException("Bad Request");
+        }
         if($user){
             $fund = $fundRepository->findOneBy(["user" => $user]);
             $transaction = $transactionRepository->findOneBy([
