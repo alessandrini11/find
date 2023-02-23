@@ -18,8 +18,14 @@
                     {% for declaration in declarations %}
                         <div class="">
                         <a href="{{ path('app_show_declaration', { id: declaration.id }) }}" class="block rounded overflow-hidden shadow-lg cursor-pointer">
-                            <img class="aspect-video" src="{{ asset('uploads/documents/' ~ declaration.document.image ) }}" alt="{{ declaration.document.type }}">
-                            <div class="px-6 py-4">
+                            <img class="aspect-video" src="
+                                {% if declaration.document.image == null or declaration.document.image == "" %}
+                                    {{ asset('assets/image/illustration.png') }}
+                                    {% else %}
+                                    {{ asset('uploads/documents/' ~ declaration.document.image ) }}
+                                {% endif %}
+                                " alt="{{ declaration.document.type }}">
+                           <div class="px-6 py-4">
                                 <div class="font-semibold text-xl mb-2">{{ declaration.document.owner }}</div>
                                 <div class="mb-2">Numéro: <span>{{ declaration.document.idNumber }}</span></div>
                                 <ul class="text-gray-700 text-base space-y-2">

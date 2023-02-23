@@ -13,9 +13,13 @@
             <tr class="flex space-x-2">
                 <th></th>
                 <td>
-                    {% if declaration.document.image %}
-                        <img src="{{ asset('uploads/documents/' ~ declaration.document.image) }}" alt="document" class="lg:h-48 h-auto">
-                    {% endif %}
+                    <img class="aspect-video" src="
+                        {% if not declaration.document.image %}
+                            {{ asset('assets/image/illustration.png') }}
+                            {% else %}
+                            {{ asset('uploads/documents/' ~ declaration.document.image ) }}
+                        {% endif %}
+                        " alt="{{ declaration.document.type }}">
                 </td>
             </tr>
             <tr class="flex space-x-2">

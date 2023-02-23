@@ -54,7 +54,7 @@ class Document
     #[ORM\OneToMany(mappedBy: 'document', targetEntity: Declaration::class, cascade: ["persist"])]
     private Collection $declarations;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $image = null;
 
     private ?string $imageFile;

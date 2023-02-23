@@ -75,7 +75,7 @@ class HomeController extends AbstractController
     #[Route('/recherche', name: 'app_search', methods: ['GET', 'POST'])]
     public function search(DeclarationRepository $declarationRepository, Request $request): Response
     {
-        $declarations = $declarationRepository->findBy(["completed" => false]);
+        $declarations = $declarationRepository->findBy(["completed" => true]);
         $declarationSearch = new DeclarationSearch();
         $form = $this->createForm(DeclarationSearchType::class, $declarationSearch);
         $form->handleRequest($request);
@@ -98,7 +98,6 @@ class HomeController extends AbstractController
     #[Route('/declaration/{id}', name: 'app_show_declaration', methods: 'GET')]
     public function showDeclaration(
         Declaration $declaration,
-        UserRepository $userRepository,
         TransactionRepository $transactionRepository,
         FundRepository $fundRepository
     ): Response
