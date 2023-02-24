@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Archive;
+use App\Entity\Comment;
 use App\Entity\Declaration;
 use App\Entity\Document;
 use App\Entity\Fund;
@@ -12,10 +13,12 @@ use App\Entity\Transaction;
 use App\Entity\User;
 use App\Entity\Visitor;
 use App\Repository\ArchiveRepository;
+use App\Repository\CommentRepository;
 use App\Repository\DeclarationRepository;
 use App\Repository\DocumentRepository;
 use App\Repository\UserRepository;
 use App\Repository\VisitorRepository;
+use App\Service\CommentService;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Assets;
 use Symfony\Component\HttpFoundation\Response;
@@ -33,21 +36,25 @@ class DashboardController extends AbstractDashboardController
     private DocumentRepository $documentRepository;
     private UserRepository $userRepository;
     private VisitorRepository $visitorRepository;
-
-    /**
-     * @param ArchiveRepository $archiveRepository
-     * @param DeclarationRepository $declarationRepository
-     * @param DocumentRepository $documentRepository
-     * @param UserRepository $userRepository
-     * @param VisitorRepository $visitorRepository
-     */
-    public function __construct(ArchiveRepository $archiveRepository, DeclarationRepository $declarationRepository, DocumentRepository $documentRepository, UserRepository $userRepository, VisitorRepository $visitorRepository)
+    private CommentRepository $commentRepository;
+    private CommentService $commentService;
+    public function __construct(
+        ArchiveRepository $archiveRepository,
+        DeclarationRepository $declarationRepository,
+        DocumentRepository $documentRepository,
+        UserRepository $userRepository,
+        VisitorRepository $visitorRepository,
+        CommentRepository $commentRepository,
+        CommentService $commentService
+    )
     {
         $this->archiveRepository = $archiveRepository;
         $this->declarationRepository = $declarationRepository;
         $this->documentRepository = $documentRepository;
         $this->userRepository = $userRepository;
         $this->visitorRepository = $visitorRepository;
+        $this->commentRepository = $commentRepository;
+        $this->commentService = $commentService;
     }
 
 
@@ -55,12 +62,14 @@ class DashboardController extends AbstractDashboardController
     public function index(): Response
     {
 
+
         return $this->render('admin/dashboard.html.twig',[
             'found_documents' => $this->archiveRepository->findAll(),
             'declaration' => $this->declarationRepository->findAll(),
             'users' => $this->userRepository->findAll(),
             'visitors' => $this->visitorRepository->findAll(),
-            'documents' => $this->documentRepository->findAll()
+            'documents' => $this->documentRepository->findAll(),
+            'general_notation' => $this->commentService->getGeneralNotation()
         ]);
         // return parent::index();
 //        $adminUrlGenerator = $this->container->get(AdminUrlGenerator::class);
@@ -111,6 +120,7 @@ class DashboardController extends AbstractDashboardController
             MenuItem::linkToCrud('Villes', 'fa fa-map-pin', Town::class),
         ]);
         yield MenuItem::linkToCrud('Utilisateurs', 'fa fa-user', User::class);
+        yield MenuItem::linkToCrud('Avis', 'fa fa-comment', Comment::class);
         yield MenuItem::linkToCrud('Visiteurs', 'fas fa-users', Visitor::class);
     }
     public function configureActions(): Actions

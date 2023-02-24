@@ -2,15 +2,19 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Declaration;
 use App\Entity\Transaction;
 use App\Exceptions\Api\UnauthorizedException;
 use App\Exceptions\Api\NotFoundException;
+use App\Form\CommentType;
 use App\Form\DeclarationSearchType;
 use App\Models\DeclarationSearch;
+use App\Repository\CommentRepository;
 use App\Repository\DeclarationRepository;
 use App\Repository\FundRepository;
 use App\Repository\TransactionRepository;
+use App\Service\CommentService;
 use App\Service\TransactionService;
 use App\Service\VisitorService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -27,7 +31,8 @@ class HomeController extends AbstractController
     public function index(
         VisitorService $visitorService,
         Request $request,
-        DeclarationRepository $declarationRepository
+        DeclarationRepository $declarationRepository,
+        CommentRepository $commentRepository
     ): Response
     {
         $ip = $request->getClientIp();
@@ -44,7 +49,8 @@ class HomeController extends AbstractController
             ]);
         }
         return $this->render('home/index.html.twig', [
-            "form" => $form->createView()
+            "form" => $form->createView(),
+            "comments" => $commentRepository->findBy(["status" => true], ["createdAt" => "DESC"],10)
         ]);
     }
 
@@ -141,6 +147,31 @@ class HomeController extends AbstractController
         ]);
     }
 
+    #[Route('/avis', name: 'app_comment', methods: ['GET', 'POST'])]
+    public function comment(CommentRepository $commentRepository, Request $request, CommentService $commentService): Response
+    {
+        $comment = new Comment();
+        $form = $this->createForm(CommentType::class, $comment);
+        $form->handleRequest($request);
+        if($this->getUser()){
+            if($form->isSubmitted() && $form->isValid()){
+                $comment->setUser($this->getUser());
+                $comment->setStatus(true);
+                $commentRepository->save($comment, true);
+                $this->addFlash('success', 'Votre commentaire à été posté merci!');
+                return $this->render('home/comment.html.twig',[
+                    "form" => $form->createView(),
+                    "canPostComment" => $commentService->canPostComment($this->getUser())
+                ]);
+            }
+        }
+        $comments = $commentRepository->findBy(["status" => true], ["createdAt" => "DESC"]);
+        return $this->render('home/comment.html.twig', [
+            "comments" => $comments,
+            "form" => $form->createView(),
+            "canPostComment" => $commentService->canPostComment($this->getUser())
+        ]);
+    }
     #[Route('/add-payment/{id}', name: 'app_is_auth', methods: 'POST')]
     public function addPayment(
         int $id,

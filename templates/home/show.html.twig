@@ -6,15 +6,11 @@
             <div class="grid lg:grid-cols-6">
                 <div class="lg:col-start-2 lg:col-span-4">
                     <div class="rounded overflow-hidden shadow-lg">
-                        <img class="h-[400px] w-full" src="
-                        {% if not declaration.document.image %}
-                            {{ asset('assets/image/illustration.png') }}
-                            {% else %}
-                            {{ asset('uploads/documents/' ~ declaration.document.image ) }}
+                        <img class="h-[400px] w-full" src=" {% if not declaration.document.image %} {{ asset('assets/image/illustration.png') }} {% else %} {{ asset('uploads/documents/' ~ declaration.document.image ) }}
                         {% endif %}
                         " alt="{{ declaration.document.type }}">
                         <div class="px-6 py-4">
-                            <p class="text-sm text-gray-">
+                            <p class="text-sm text-gray-700">
                                 <span><i class="fa fa-eye"></i></span> <span>{{ declaration.visitors | length }}</span>
                             </p>
                             <div class="font-semibold text-xl mb-2">{{ declaration.document.owner }}</div>
