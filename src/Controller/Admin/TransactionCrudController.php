@@ -27,6 +27,7 @@ class TransactionCrudController extends AbstractCrudController
             ChoiceField::new('type')
                 ->setChoices(array_flip(Transaction::TYPES)),
             NumberField::new('montant'),
+            TextField::new('motif'),
             DateTimeField::new('createdAt')->hideOnForm(),
             DateTimeField::new('updatedAt')->hideOnForm()
         ];

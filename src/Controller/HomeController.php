@@ -15,6 +15,7 @@ use App\Repository\DeclarationRepository;
 use App\Repository\FundRepository;
 use App\Repository\TransactionRepository;
 use App\Service\CommentService;
+use App\Service\MessageBirdService;
 use App\Service\TransactionService;
 use App\Service\VisitorService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -130,16 +131,15 @@ class HomeController extends AbstractController
             throw new BadRequestException("Bad Request");
         }
         if($user){
-            $fund = $fundRepository->findOneBy(["user" => $user]);
+            $fund = $fundRepository->findBy(["user" => $user]);
             $transaction = $transactionRepository->findOneBy([
                 "fund" => $fund,
-                "motif" => Transaction::DEPOSIT_FOR_PAYMENT.' '.$declaration->getLabel()
+                "motif" => Transaction::DEPOSIT_FOR_PAYMENT .' '. $declaration->getLabel()
             ]);
             if($transaction){
                 $isPayed = true;
             }
         }
-
         return $this->render('home/show.html.twig', [
             "declaration" => $declaration,
             "user" => $user,
@@ -177,7 +177,8 @@ class HomeController extends AbstractController
         int $id,
         DeclarationRepository $declarationRepository,
         FundRepository $fundRepository,
-        TransactionService $transactionService
+        TransactionService $transactionService,
+        MessageBirdService $messageBirdService
     ): JsonResponse
     {
         $user = $this->getUser();
@@ -189,12 +190,13 @@ class HomeController extends AbstractController
             throw new NotFoundException();
         }
         $fund = $fundRepository->findOneBy(["user" => $user]);
-        $transactionService->create(
-            $fund,
-            500,
-            Transaction::DEPOSIT,
-            Transaction::DEPOSIT_FOR_PAYMENT .' '. $declaration->getLabel()
-        );
+        $messageBirdService->sendSMS(695254870, 698005354);
+//        $transactionService->create(
+//            $fund,
+//            500,
+//            Transaction::DEPOSIT,
+//            Transaction::DEPOSIT_FOR_PAYMENT .' '. $declaration->getLabel()
+//        );
         $response = new ApiResponse();
         return $this->json($response);
     }

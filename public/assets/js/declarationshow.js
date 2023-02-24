@@ -21,7 +21,7 @@ let messageContent = "Payement effectué avec succès"
                         break
                     case 401:
                         iconContainer.innerHTML = ` <i class="text-6xl text-red-500 fa fa-circle-exclamation"></i> `
-                        message.innerText = "Vous devez vous authentifier"
+                        message.innerHTML = `<a href="{{ path('app_login') }}" class="">${message}</a>`
                         modal.classList.remove("hidden")
                         break
                     case 404:
@@ -42,4 +42,5 @@ let messageContent = "Payement effectué avec succès"
 
     closeButton.addEventListener("click", () => {
         modal.classList.add("hidden")
+        window.location.href = ""
     })

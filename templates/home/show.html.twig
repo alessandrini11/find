@@ -33,7 +33,7 @@
                                     </li>
                                     <li class="ml-3">
                                         {% if not isPayed %}
-                                            <button id="get-contact" onclick="addPayment(6)" href="" class="inline-block text-blue-800 border-2 border-blue-800 bg-blue-100 rounded-full px-2">obtenir le numéro</button>
+                                            <button id="get-contact" onclick="addPayment({{ declaration.id }})" href="" class="inline-block text-blue-800 border-2 border-blue-800 bg-blue-100 rounded-full px-2">obtenir le numéro</button>
                                         {% endif %}
                                     </li>
                                 </ul>
@@ -56,6 +56,7 @@
             </div>
         </div>
     </div>
+
     <script src="{{ asset('assets/js/declarationshow.js') }}"></script>
 {% endblock %}
 
