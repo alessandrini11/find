@@ -25,8 +25,8 @@
     <nav class="bg-gradient-to-r to-[#5A72EA] from-[#8468B1]">
         <div class="container mx-auto py-5">
             <div class="flex justify-between items-center">
-                <a title="logo" href="">
-                    <img class="h-10 lg:h-20" src="{{ asset('assets/image/favicon.png') }}" alt="">
+                <a title="home" href="{{ path('app_home') }}">
+                    <img class="h-10 lg:h-20" src="{{ asset('assets/image/favicon.png') }}" alt="logo">
                 </a>
                 <ul class="hidden text-white lg:flex space-x-10">
                     {% if app.user %}
@@ -57,10 +57,10 @@
     </nav>
     <div id="mobile-menu" class="z-10 p-5 mx-auto py-5 bg-gradient-to-r to-[#5A72EA] from-[#8468B1] fixed w-full h-screen top-0 transform -translate-x-full ease-in-out duration-200">
         <div class="flex justify-between items-center">
-            <a href="">
-                <img class="h-10" src="{{ asset('assets/image/favicon.png') }}" alt="">
+            <a title="home" href="{{ path('app_home') }}">
+                <img class="h-10" src="{{ asset('assets/image/favicon.png') }}" alt="logo">
             </a>
-            <button title="close menu" id="close-menu" type="button" class="inline-flex lg:hidden items-center p-2 ml-3 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-200 " >
+            <button aria-label="close menu" id="close-menu" type="button" class="inline-flex lg:hidden items-center p-2 ml-3 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-200 " >
                 <i class="text-lg fa-solid fa-xmark"></i>
             </button>
         </div>
@@ -81,7 +81,9 @@
             {% if app.user %}
                 <li><a href="{{ path('app_logout') }}" class="bg-white text-primary py-2 px-4 rounded-lg cursor-pointer">Deconnexion</a></li>
             {% else %}
-                <li><a href="{{ path('app_login') }}" class="bg-white text-primary py-2 px-4 rounded-lg cursor-pointer">Connexion</a></li>
+                <li>
+                    <a href="{{ path('app_login') }}" class="bg-white text-primary py-2 px-4 rounded-lg cursor-pointer">Connexion</a>
+                </li>
             {% endif %}
         </ul>
     </div>
@@ -92,7 +94,7 @@
         <div class="container py-5">
             <div class="lg:flex justify-between space-y-5 lg:sapce-y-0">
                 <div class="py-3">
-                    <h3 class="uppercase text-primary text-3xl font-semibold"><a href="" class="">find</a></h3>
+                    <h3 class="uppercase text-primary text-3xl font-semibold"><a href="{{ path('app_home') }}" class="">find</a></h3>
                     <p class="lg:w-1/2 text-[#5A5A5A]">The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested</p>
                 </div>
                 <div class="space-x-0 lg:space-x-5 lg:flex">
