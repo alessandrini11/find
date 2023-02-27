@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Not Found {% endblock %}
+
+{% block body %}
+    <main class="">
+        <section class="">
+            <div class="container">
+                <div class="h-screen flex justify-center items-center">
+                    <div class="text-center space-y-3">
+                        <h1 class="text-[150px] font-semibold tracking-tighter text-primary">Oops!</h1>
+                        <h2 class="text-2xl font-semibold">401 - Vous devez vous connecter</h2>
+                        <p class="">Vous ne pouvez pas avoir accès à cette ressource</p>
+                        <a href="{{ path('app_home') }}" class="inline-block py-1 px-2 rounded-md bg-primary text-white">retour à l'accueil</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}
