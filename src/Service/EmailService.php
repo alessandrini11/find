@@ -21,11 +21,12 @@ class EmailService
     {
         $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
             (new TemplatedEmail())
-                ->from(new Address('contact@schuamealexandre.com', 'No reply'))
+                ->from(new Address('contact@findnouviconline.com', "L'équipe find"))
                 ->to($user->getEmail())
                 ->subject('Confirmez votre adresse email')
                 ->htmlTemplate('registration/confirmation.html.twig')
         );
+
     }
 
 }

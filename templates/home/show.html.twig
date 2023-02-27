@@ -16,7 +16,11 @@
                             <div class="font-semibold text-xl mb-2">{{ declaration.document.owner }}</div>
                             <div class="mb-2">Numéro: <span>{{ declaration.document.idNumber }}</span></div>
                             <ul class="text-gray-700 text-base">
-                                <li><span class="inline-block bg-red-200 rounded-full px-3 py-1 text-sm font-semibold text-red-700 mr-2 mb-2">Perdu</span></li>
+                                {% if declaration.status == 'trouvé' %}
+                                        <li><span class="inline-block bg-green-200 rounded-full px-3 py-1 text-sm font-semibold text-green-700 mr-2 mb-2">{{ declaration.status }}</span></li>
+                                    {% else %}
+                                        <li><span class="inline-block bg-red-200 rounded-full px-3 py-1 text-sm font-semibold text-red-700 mr-2 mb-2">{{ declaration.status }}</span></li>
+                                {% endif %}
                                 <li><i class="fa fa-map-pin"></i> <span class="text-sm inline-block ml-1">{{ declaration.municipality }}, {{ declaration.municipality.town }}</span> </li>
                             </ul>
                             <div class="mt-2 space-y-2">
