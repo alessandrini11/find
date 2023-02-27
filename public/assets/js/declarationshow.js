@@ -21,7 +21,7 @@ let messageContent = "Payement effectué avec succès"
                         break
                     case 401:
                         iconContainer.innerHTML = ` <i class="text-6xl text-red-500 fa fa-circle-exclamation"></i> `
-                        message.innerHTML = `<a href="{{ path('app_login') }}" class="">${message}</a>`
+                        message.innerText = 'Vous devez vous connecter!'
                         modal.classList.remove("hidden")
                         break
                     case 404:

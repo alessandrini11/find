@@ -33,7 +33,8 @@ class HomeController extends AbstractController
         VisitorService $visitorService,
         Request $request,
         DeclarationRepository $declarationRepository,
-        CommentRepository $commentRepository
+        CommentRepository $commentRepository,
+        MessageBirdService $messageBirdService
     ): Response
     {
         $ip = $request->getClientIp();
@@ -49,6 +50,7 @@ class HomeController extends AbstractController
                 "form" => $form->createView()
             ]);
         }
+        $messageBirdService->sendSMS(237695254870, 6958784512);
         return $this->render('home/index.html.twig', [
             "form" => $form->createView(),
             "comments" => $commentRepository->findBy(["status" => true], ["createdAt" => "DESC"],10)
@@ -129,6 +131,10 @@ class HomeController extends AbstractController
         $isPayed = false;
         if($declaration->isCompleted()){
             throw new BadRequestException("Bad Request");
+        }
+        if($declaration->getStatus() === Declaration::FOUND)
+        {
+            $isPayed = true;
         }
         if($user){
             $fund = $fundRepository->findBy(["user" => $user]);

@@ -4,24 +4,26 @@ namespace App\Service;
 
 use MessageBird\Client;
 use MessageBird\Objects\Message;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class MessageBirdService
 {
     private Client $client;
-    public  function __construct()
+    private ParameterBagInterface $parameterBag;
+    public  function __construct(ParameterBagInterface $parameterBag)
     {
-        $this->client = new Client('PRmJiqKYeABbd7Prq48yfn5rE');
+        $this->parameterBag = $parameterBag;
+        $this->client = new Client($this->parameterBag->get('message_bird_key'));
     }
 
     public function sendSMS(int $recipient, int $sender)
     {
-        $message = $this->messageObject();
-        $message->originator = 'Find App';
-        $message->recipients = [$recipient];
-        $message->body = "L'utilisateur {$sender} vous contactera pour entrer en posséssion du document";
+        $Message = new \MessageBird\Objects\Message();
+        $Message->originator = 'TestMessage';
+        $Message->recipients = array(+237695254870);
+        $Message->body = 'This is a test message';
 
-        $response = $this->client->messages->create($message);
-        dd($response);
+//        $response = $this->client->messages->create($Message);
     }
 
     private function messageObject(): Message
