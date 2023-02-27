@@ -25,7 +25,7 @@
     <nav class="bg-gradient-to-r to-[#5A72EA] from-[#8468B1]">
         <div class="container mx-auto py-5">
             <div class="flex justify-between items-center">
-                <a href="">
+                <a title="logo" href="">
                     <img class="h-10 lg:h-20" src="{{ asset('assets/image/favicon.png') }}" alt="">
                 </a>
                 <ul class="hidden text-white lg:flex space-x-10">
@@ -42,13 +42,11 @@
                     <li><a href="{{ path('app_comment') }}" class="">Avis</a></li>
                     <li><a href="{{ path('app_mentions') }}" class="">Mention légale</a></li>
                     <li><a href="{{ path('app_contact') }}" class="">Contact</a></li>
-                    <li>
                         {% if app.user %}
-                            <a href="{{ path('app_logout') }}" class="bg-white text-primary py-2 px-4 rounded-lg cursor-pointer">Deconnexion</a>
+                           <li> <a href="{{ path('app_logout') }}" class="bg-white text-primary py-2 px-4 rounded-lg cursor-pointer">Deconnexion</a></li>
                             {% else %}
-                            <a href="{{ path('app_login') }}" class="bg-white text-primary py-2 px-4 rounded-lg cursor-pointer">Connexion</a>
+                            <li><a href="{{ path('app_login') }}" class="bg-white text-primary py-2 px-4 rounded-lg cursor-pointer">Connexion</a></li>
                         {% endif %}
-                    </li>
                 </ul>
                 <button id="open-menu" type="button" class="inline-flex lg:hidden items-center p-2 ml-3 text-sm text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-200 " >
                     <span class="sr-only">Open main menu</span>
@@ -62,7 +60,7 @@
             <a href="">
                 <img class="h-10" src="{{ asset('assets/image/favicon.png') }}" alt="">
             </a>
-            <button id="close-menu" type="button" class="inline-flex lg:hidden items-center p-2 ml-3 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-200 " >
+            <button title="close menu" id="close-menu" type="button" class="inline-flex lg:hidden items-center p-2 ml-3 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-200 " >
                 <i class="text-lg fa-solid fa-xmark"></i>
             </button>
         </div>
@@ -81,9 +79,9 @@
             <li><a href="{{ path('app_mentions') }}" class="">Mention légale</a></li>
             <li><a href="{{ path('app_contact') }}" class="">Contact</a></li>
             {% if app.user %}
-                <a href="{{ path('app_logout') }}" class="bg-white text-primary py-2 px-4 rounded-lg cursor-pointer">Deconnexion</a>
+                <li><a href="{{ path('app_logout') }}" class="bg-white text-primary py-2 px-4 rounded-lg cursor-pointer">Deconnexion</a></li>
             {% else %}
-                <a href="{{ path('app_login') }}" class="bg-white text-primary py-2 px-4 rounded-lg cursor-pointer">Connexion</a>
+                <li><a href="{{ path('app_login') }}" class="bg-white text-primary py-2 px-4 rounded-lg cursor-pointer">Connexion</a></li>
             {% endif %}
         </ul>
     </div>
@@ -99,7 +97,7 @@
                 </div>
                 <div class="space-x-0 lg:space-x-5 lg:flex">
                     <div class="py-3">
-                        <h3 class="text-primary text-xl">Navigation</h3>
+                        <h4 class="text-primary text-xl">Navigation</h4>
                         <ul class="text-[#5A5A5A] space-y-3 mt-2">
                             <li><a href="{{ path('app_home') }}" class="">Accueil</a></li>
                             <li><a href="{{ path('app_search') }}" class="">Recherche</a></li>
@@ -109,7 +107,7 @@
                         </ul>
                     </div>
                     <div class="py-3">
-                        <h3 class="text-primary text-xl">Contact</h3>
+                        <h4 class="text-primary text-xl">Contact</h4>
                         <ul class="text-[#5A5A5A] space-y-3 mt-2">
                             <li>contact@find.cm</li>
                             <li>+237 698 530 785</li>
