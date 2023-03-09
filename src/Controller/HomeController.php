@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\DTO\SmsResponse;
 use App\Entity\Comment;
 use App\Entity\Declaration;
 use App\Entity\Transaction;
@@ -16,6 +17,7 @@ use App\Repository\FundRepository;
 use App\Repository\TransactionRepository;
 use App\Service\CommentService;
 use App\Service\MessageBirdService;
+use App\Service\SmsService;
 use App\Service\TransactionService;
 use App\Service\VisitorService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -34,7 +36,6 @@ class HomeController extends AbstractController
         Request $request,
         DeclarationRepository $declarationRepository,
         CommentRepository $commentRepository,
-        MessageBirdService $messageBirdService
     ): Response
     {
         $ip = $request->getClientIp();
@@ -50,7 +51,6 @@ class HomeController extends AbstractController
                 "form" => $form->createView()
             ]);
         }
-        $messageBirdService->sendSMS(237695254870, 6958784512);
         return $this->render('home/index.html.twig', [
             "form" => $form->createView(),
             "comments" => $commentRepository->findBy(["status" => true], ["createdAt" => "DESC"],10)
@@ -178,13 +178,13 @@ class HomeController extends AbstractController
             "canPostComment" => $commentService->canPostComment($this->getUser())
         ]);
     }
-    #[Route('/add-payment/{id}', name: 'app_is_auth', methods: 'POST')]
+    #[Route('/add-payment/{id}', name: 'app_add_payment', methods: ['POST', 'GET'])]
     public function addPayment(
         int $id,
         DeclarationRepository $declarationRepository,
         FundRepository $fundRepository,
         TransactionService $transactionService,
-        MessageBirdService $messageBirdService
+        SmsService $smsService
     ): JsonResponse
     {
         $user = $this->getUser();
@@ -196,13 +196,16 @@ class HomeController extends AbstractController
             throw new NotFoundException();
         }
         $fund = $fundRepository->findOneBy(["user" => $user]);
-        $messageBirdService->sendSMS(695254870, 698005354);
-//        $transactionService->create(
-//            $fund,
-//            500,
-//            Transaction::DEPOSIT,
-//            Transaction::DEPOSIT_FOR_PAYMENT .' '. $declaration->getLabel()
-//        );
+        $to = new SmsResponse($declaration->getUser());
+        $response =  $smsService->sendSms($to, $user->getMSISDNFormat(), $declaration->getLabel());
+        if($response){
+            $transactionService->create(
+                $fund,
+                500,
+                Transaction::DEPOSIT,
+                Transaction::DEPOSIT_FOR_PAYMENT .' '. $declaration->getLabel()
+            );
+        }
         $response = new ApiResponse();
         return $this->json($response);
     }

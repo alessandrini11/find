@@ -17,12 +17,10 @@
         $('.townselect').select2();
         $('.municipalityselect').select2()
 
-        console.log("ok")
-
-        // const selectLists = document.getElementsByClassName('select2')
-        // for (let i = 0; i < selects.length; i++){
-        //     selectLists[i].style.width = "100%"
-        //     selectLists[i].style.zIndex = -1
-        // }
+        const selectLists = document.getElementsByClassName('select2')
+        for (let i = 0; i < selectLists.length; i++){
+            selectLists[i].style.width = "100%"
+            // selectLists[i].style.zIndex = -1
+        }
     </script>
 {% endblock %}

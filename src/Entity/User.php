@@ -514,4 +514,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+    public function getMSISDNFormat()
+    {
+        return preg_replace("/[^0-9]/", "", $this->getTelephone());
+    }
 }

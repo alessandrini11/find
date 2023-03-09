@@ -46,7 +46,14 @@
                                 </ul>
                                 <div class="mt-2">
                                     <p>Contactez l'utilisateur</p>
-                                    <p class="text-gray-700 text-base"><i class="fa fa-user"></i> <span class="text-sm">+237 6## ### ### </span></p>
+                                    <p class="text-gray-700 text-base">
+                                        <i class="fa fa-user"></i>
+                                        {% if declaration.status == 'trouvé' %}
+                                            <span class="text-sm">{{ declaration.user.telephone }}</span>
+                                        {% else %}
+                                            <span class="text-sm">+237 6## ### ### </span>
+                                        {% endif %}
+                                    </p>
                                 </div>
                             </div>
                         </a>
