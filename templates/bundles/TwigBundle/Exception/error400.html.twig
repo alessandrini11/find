@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Not Found {% endblock %}
+
+{% block body %}
+    <main class="">
+        <section class="">
+            <div class="container">
+                <div class="h-screen flex justify-center items-center">
+                    <div class="text-center space-y-3">
+                        <h1 class="text-[150px] font-semibold tracking-tighter text-primary">Oops!</h1>
+                        <h2 class="text-2xl font-semibold">400 - Vous devez enregistrer votre numéro <a href="{{ path('app_dashboard_profile') }}" class="font-semibold">ICI</a></h2>
+                        <p class="">Vous ne pouvez pas enregistrer une déclaration tant que vous n'aurez pas enregistré votre numéro <a href="{{ path('app_dashboard_profile') }}" class="font-semibold">ICI</a></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}

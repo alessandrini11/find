@@ -4,6 +4,7 @@
 
 {% block body %}
 <div class="bg-white">
+    {{ include('components/update_phonenumber.html.twig') }}
     <div class="w-11/12 mx-auto">
         <div class="py-3 text-sm">
             <span class="font-thin">Bienvenu {{ app.user.firstname }} {{ app.user.lastname }}</span>

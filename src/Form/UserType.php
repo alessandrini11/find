@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Length;
 
 class UserType extends AbstractType
 {
@@ -42,10 +43,19 @@ class UserType extends AbstractType
                     'class' => 'border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ',
                 ]
             ])
-//            ->add('telephone', TelType::class, [
-//                'required' => true,
-//                'label' => false
-//            ])
+            ->add('telephone', TelType::class, [
+                'required' => true,
+                'label' => false,
+                'attr' => [
+                    'class' => 'border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ',
+                ],
+                'constraints' => [
+                    new Length(
+                        9,
+                        exactMessage: 'Votre numéro doit avoir une longueur de 9 chiffres'
+                    )
+                ]
+            ])
         ;
     }
 

@@ -1,0 +1,5 @@
+{% if app.user.telephone is null %}
+    <div class="p-4 mb-4 text-center text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+        <span class="font-medium">Attention</span> enregistrez votre numéro de téléphone <a class="font-semibold" href="{{ path('app_dashboard_profile') }}">ICI</a> avant de commencer déclarer un document
+    </div>
+{% endif %}

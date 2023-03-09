@@ -3,6 +3,7 @@
 {% block title %}Declaration{% endblock %}
 
 {% block body %}
+    {{ include('components/update_phonenumber.html.twig') }}
     <section class="py-7">
         <div class="w-11/12 mx-auto space-y-10">
             {% for message in app.flashes('success') %}
@@ -27,10 +28,12 @@
                 <div class="">
                     <div class="p-5 flex justify-between items-center">
                         <span class="font-semibold text-gray-700">Les Déclarations</span>
-                        <a class="p-2 bg-green-100 text-green-500 rounded flex items-center cursor-pointer space-x-2 hover:scale-110 transition-all ease-in-out " href={{ path('app_declaration_new') }} >
-                            <i class="fa-solid fa-plus"></i>
-                            <span class="text-sm font-thin">Ajouter</span>
-                        </a>
+                        {% if app.user.telephone is not null %}
+                            <a class="p-2 bg-green-100 text-green-500 rounded flex items-center cursor-pointer space-x-2 hover:scale-110 transition-all ease-in-out " href={{ path('app_declaration_new') }} >
+                                <i class="fa-solid fa-plus"></i>
+                                    <span class="text-sm font-thin">Ajouter</span>
+                            </a>
+                        {% endif %}
                     </div>
                     <div class="p-5 overflow-x-scroll">
                         <table class="w-full">

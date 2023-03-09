@@ -56,6 +56,12 @@ class RegistrationFormType extends AbstractType
                 'attr' => [
                     'class' => 'rounded-lg bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5',
                     'placeholder' => 'Telephone'
+                ],
+                'constraints' => [
+                    new Length(
+                        9,
+                        exactMessage: 'Votre numéro doit avoir une longueur de 9 chiffres'
+                    )
                 ]
             ])
             ->add('plainPassword', RepeatedType::class, [

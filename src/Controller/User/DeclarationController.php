@@ -4,6 +4,7 @@ namespace App\Controller\User;
 
 use App\Entity\Declaration;
 use App\Entity\Document;
+use App\Exceptions\PhoneNumberStatusException;
 use App\Form\DeclarationSearchType;
 use App\Form\DeclarationType;
 use App\Models\DeclarationSearch;
@@ -45,7 +46,9 @@ class DeclarationController extends AbstractController
     public function new(Request $request, DeclarationRepository $declarationRepository, DocumentService $documentService): Response
     {
         $user = $this->getUser();
-
+        if(!$user->getTelephone()){
+            throw new PhoneNumberStatusException();
+        }
         $document = new Document();
         $declaration = new Declaration();
         $form = $this->createForm(DeclarationType::class, $declaration);

@@ -4,6 +4,7 @@
 
 {% block body %}
     <main class="">
+        {{ include('components/update_phonenumber.html.twig') }}
         <div class="flex justify-center">
             {% for message in app.flashes('success') %}
                 <div class="bg-green-200 text-green-600 ">
@@ -68,17 +69,11 @@
                                             <label class="block" for="sex">Sexe</label>
                                             {{form_row(change_user_info_form.sex)}}
                                         </div>
+                                        <div class="space-y-2">
+                                            <label class="block" for="phonenumber">Numéro</label>
+                                            {{form_row(change_user_info_form.telephone)}}
+                                        </div>
                                     </div>
-{#                                    <div class="grid lg:grid-cols-2 gap-5">#}
-{#                                        <div class="space-y-2">#}
-{#                                            <label class="block" for="phonenumber">Numéro</label>#}
-{#                                            {{form_row(change_user_info_form.telephone, {'attr':{'class':'focus:outline-none border rounded px-3 py-1 text-sm w-full'}})}}#}
-{#                                        </div>#}
-{#                                        <div class="space-y-2">#}
-{#                                            <label class="block" for="email">Email</label>#}
-{#                                            {{form_row(change_user_info_form.email, {'attr':{'class':'focus:outline-none border rounded px-3 py-1 text-sm w-full'}})}}#}
-{#                                        </div>#}
-{#                                    </div>#}
                                     <div class="flex justify-end">
                                         <button class="bg-primary rounded text-white p-3 w-full lg:w-fit" type="submit">Valider</button>
                                     </div>
