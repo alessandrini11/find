@@ -15,7 +15,7 @@
                     {{ form_end(form) }}
                 </div>
                 <div class="grid gap-5 lg:grid-cols-3">
-                    {% for declaration in declarations %}
+                    {% for declaration in declarations | reverse %}
                         <div class="">
                         <a href="{{ path('app_show_declaration', { id: declaration.id }) }}" class="block rounded overflow-hidden shadow-lg cursor-pointer">
                             <img class="aspect-video" src="
@@ -48,7 +48,7 @@
                                     <p>Contactez l'utilisateur</p>
                                     <p class="text-gray-700 text-base">
                                         <i class="fa fa-user"></i>
-                                        {% if declaration.status == 'trouvé' %}
+                                        {% if declaration.status == 'perdu' %}
                                             <span class="text-sm">{{ declaration.user.telephone }}</span>
                                         {% else %}
                                             <span class="text-sm">+237 6## ### ### </span>
@@ -58,6 +58,8 @@
                             </div>
                         </a>
                     </div>
+                        {% else %}
+                        <p>Aucun resultat trouvé avec votre recherche</p>
                     {% endfor %}
                 </div>
             </div>
