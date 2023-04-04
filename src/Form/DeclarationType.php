@@ -57,15 +57,6 @@ class DeclarationType extends AbstractType
                     'rows' => '3'
                 ]
             ])
-            ->add('ville', EntityType::class, [
-                'class' => Town::class,
-                'mapped' => false,
-                'label' => false,
-                'required' => true ,
-                'attr' => [
-                    'class' => 'townselect select2'
-                ],
-            ])
             ->add('municipality', EntityType::class, [
                 'class' => Municipality::class,
                 'label' => false,
@@ -105,25 +96,6 @@ class DeclarationType extends AbstractType
                     'class' => 'border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 '
                 ],
             ])
-//            ->add('document', EntityType::class, [
-//                'class' => Document::class,
-//                'label' => false,
-//                'required' => true ,
-//                'attr' => [
-//                    'class' => 'doc_type'
-//                ],
-//                'query_builder' => function (EntityRepository $er){
-//                    $qb = $er->createQueryBuilder('d')
-//                        ->orderBy('d.owner', 'ASC');
-//
-//                    return $qb
-//                        ->leftJoin('d.user', 'u')
-//                        ->andWhere($qb->expr()->eq('u.id', ':userId'))
-//                        ->setParameter('userId', $this->security->getUser()->getId())
-//                        ;
-//                },
-//                'choice_label' => 'label'
-//            ])
         ;
     }
 

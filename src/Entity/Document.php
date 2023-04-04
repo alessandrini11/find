@@ -18,11 +18,11 @@ class Document
     use DateTrait;
 
     const DIRECTORY = 'documents';
-    const NIC = 'nic';
-    const BIRTH_CERTIFICATE = 'birth certificate';
-    const DEATH_CERTIFICATE = 'death certificate';
-    const MARRIAGE_CERTIFICATE = 'marriage certificate';
-    const CERTIFICATE = 'certificate';
+    const NIC = 'cni';
+    const BIRTH_CERTIFICATE = 'acte naissance';
+    const DEATH_CERTIFICATE = 'acte décès';
+    const MARRIAGE_CERTIFICATE = 'acte de mariage';
+    const CERTIFICATE = 'diplôme';
 
     const TYPES = [
         self::NIC => 'cni',
