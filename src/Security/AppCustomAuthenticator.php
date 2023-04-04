@@ -45,11 +45,11 @@ class AppCustomAuthenticator extends AbstractLoginFormAuthenticator
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
             return new RedirectResponse($targetPath);
         }
-        if (in_array('ROLE_ADMIN', $this->security->getUser()->getRoles()))
-        {
+        if (in_array('ROLE_ADMIN', $this->security->getUser()->getRoles())){
             return new RedirectResponse($this->urlGenerator->generate('admin'));
+        } else {
+            return new RedirectResponse($this->urlGenerator->generate('app_dashboard'));
         }
-        return new RedirectResponse($this->urlGenerator->generate('app_dashboard'));
     }
 
     protected function getLoginUrl(Request $request): string

@@ -132,7 +132,7 @@ class HomeController extends AbstractController
         if($declaration->isCompleted()){
             throw new BadRequestException("Bad Request");
         }
-        if($declaration->getStatus() === Declaration::FOUND)
+        if($declaration->getStatus() === Declaration::LOST)
         {
             $isPayed = true;
         }
@@ -146,6 +146,7 @@ class HomeController extends AbstractController
                 $isPayed = true;
             }
         }
+        // dd($isPayed);
         return $this->render('home/show.html.twig', [
             "declaration" => $declaration,
             "user" => $user,
@@ -197,7 +198,7 @@ class HomeController extends AbstractController
         }
         $fund = $fundRepository->findOneBy(["user" => $user]);
         $to = new SmsResponse($declaration->getUser());
-        $response =  $smsService->sendSms($to, $user->getMSISDNFormat(), $declaration->getLabel());
+        $response =  $smsService->sendSms($to, $user->getTelephone(), $declaration->getLabel());
         if($response){
             $transactionService->create(
                 $fund,
